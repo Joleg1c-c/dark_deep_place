@@ -23,7 +23,7 @@ def main_page():
 
 
 @app.route("/shop")
-def index():
+def shop():
     session = db_session.create_session()
     news = session.query(News).filter(News.is_private != True)
     if current_user.is_authenticated:
@@ -33,6 +33,13 @@ def index():
         news = session.query(News).filter(News.is_private != True)
     return render_template("index.html", news=news)
 
+@app.route("/about_us")
+def about_us():
+    return render_template('about_us.html', title="О нас")
+
+@app.route("/contacts")
+def contacts():
+    return render_template('contacts.html', title="О нас")
 
 @app.route('/news', methods=['GET', 'POST'])
 @login_required
@@ -149,7 +156,7 @@ def load_user(user_id):
 
 
 def main():
-    db_session.global_init("db/blogs.sqlite")
+    db_session.global_init("db/barahol.sqlite")
     app.run()
 
 
