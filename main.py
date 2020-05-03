@@ -6,6 +6,10 @@ from data.news import News
 from data.LoginForm import LoginForm
 from data.RegisterForm import RegisterForm
 from data.NewsForm import NewsForm
+from data.AcceptForm import AcceptForm
+from random import choice
+
+chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
 app = Flask(__name__)
 # Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
@@ -16,6 +20,14 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+def generator():
+    password = ''
+    for i in range(4):
+        password += choice(chars)
+    return password
+
 
 @app.route("/")
 def main_page():
@@ -33,13 +45,16 @@ def shop():
         news = session.query(News).filter(News.is_private != True)
     return render_template("index.html", news=news)
 
+
 @app.route("/about_us")
 def about_us():
     return render_template('about_us.html', title="О нас")
 
+
 @app.route("/contacts")
 def contacts():
     return render_template('contacts.html', title="О нас")
+
 
 @app.route('/news', methods=['GET', 'POST'])
 @login_required
@@ -75,13 +90,30 @@ def reqister():
         user = User(
             name=form.name.data,
             email=form.email.data,
-            about=form.about.data
+            about=form.about.data,
+            uuid=generator()
         )
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
-        return redirect('/login')
+        return redirect('/accept/{}'.format(user.id))
     return render_template('register.html', title='Регистрация', form=form)
+
+
+@app.route('/accept/<int:id>', methods=['GET', 'POST'])
+def accept(id):
+    form = AcceptForm()
+    if form.validate_on_submit():
+        session = db_session.create_session()
+        user = session.query(User).filter(User.id == id).first()
+        if user and user.uuid == form.check.data:
+            user.is_activate = True
+            session.commit()
+            return redirect('/login')
+        else:
+            return render_template('accept.html', form=form, message="неверный код")
+
+    return render_template('accept.html', title='Подтверждение', form=form)
 
 
 @app.route('/news/<int:id>', methods=['GET', 'POST'])
