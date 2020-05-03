@@ -19,7 +19,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return render_template('base.html', title="Главня страница")
+    return render_template('main_page.html', title="Главня страница")
 
 
 @app.route("/shop")
