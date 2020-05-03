@@ -18,9 +18,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 @app.route("/")
-# главная страница
+def main_page():
+    return render_template('base.html', title="Главня страница")
 
-@app.route("/blog")
+
+@app.route("/shop")
 def index():
     session = db_session.create_session()
     news = session.query(News).filter(News.is_private != True)
