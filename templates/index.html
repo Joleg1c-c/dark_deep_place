@@ -12,7 +12,7 @@
         {{item.content}}
     </div>
     <div>
-        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+        от {{item.user.name}}, {{item.created_date}}
         {% if current_user.is_authenticated and current_user == item.user %}
         <div>
             <a href="/news/{{ item.id }}" class="btn btn-warning">Изменить</a>

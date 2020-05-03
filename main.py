@@ -8,12 +8,19 @@ from data.RegisterForm import RegisterForm
 from data.NewsForm import NewsForm
 
 app = Flask(__name__)
+# Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
+#               7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
+# DATA = datetime.datetime.now()
+# DATA2 = " ".join([str(i) for i in [str(DATA.hour) + ":" + str(DATA.minute),
+#                                    DATA.day, Dict_Month[DATA.month], DATA.year, "года"]])
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-
 @app.route("/")
+# главная страница
+
+@app.route("/blog")
 def index():
     session = db_session.create_session()
     news = session.query(News).filter(News.is_private != True)
