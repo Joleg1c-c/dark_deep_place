@@ -141,33 +141,6 @@ def load_user(user_id):
 
 def main():
     db_session.global_init("db/blogs.sqlite")
-    user = User()
-    user.name = "Пользователь 1"
-    user.about = "биография пользователя 1"
-    user.email = "email1@email.ru"
-    session = db_session.create_session()
-    session.add(user)
-    session.commit()
-
-    user = User()
-    user.name = "Пользователь 2"
-    user.about = "биография пользователя 2"
-    user.email = "email2@email.ru"
-    session = db_session.create_session()
-    session.add(user)
-    session.commit()
-
-    news = News()
-    news.title = "Первая новость"
-    news.content = "Я не понимаю, что твориться"
-    news.is_private = False
-    news.user_id = 1
-    session = db_session.create_session()
-    session.add(news)
-    session.commit()
-
-    # user1 = session.query(User).first()
-    # print(user1.name)
     app.run()
 
 
