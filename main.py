@@ -13,11 +13,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
 
-chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+chars = 'abcdefghijklnopqrstuvwxyz1234567890'
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'  # спросить у учителя
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -41,7 +41,7 @@ def mailing(to, kod):
     msg['To'] = addr_to
     msg['Subject'] = 'Подтвердите вашу почту'
 
-    body = "ваш код подтверждения - {}".format(kod)
+    body = "Ваш код подтверждения - {}".format(kod)
     msg.attach(MIMEText(body, 'plain'))
 
     server = smtplib.SMTP('smtp.mail.ru', 587)
@@ -54,18 +54,19 @@ def mailing(to, kod):
 
 def generator():
     password = ''
-    for i in range(4):
+    for i in range(12):
+        # проверка кода на существование
         password += choice(chars)
     return password
 
 
 @app.route("/")
 def main_page():
-    return render_template('main_page.html', title="Главня страница")
+    return render_template('main_page.html', title="НАЗВАНИЕ")
 
 
-@app.route("/shop")
-def shop():
+@app.route("/goods")
+def goods():
     session = db_session.create_session()
     news = session.query(News).filter(News.is_private != True)
     if current_user.is_authenticated:
@@ -73,17 +74,22 @@ def shop():
             (News.user == current_user) | (News.is_private != True))
     else:
         news = session.query(News).filter(News.is_private != True)
-    return render_template("index.html", news=news)
+    return render_template("index.html", title="Объявления", news=news)
 
 
-@app.route("/about_us")
-def about_us():
-    return render_template('about_us.html', title="О нас")
+@app.route("/about")
+def about():
+    return render_template('about.html', title="О нас")
 
 
-@app.route("/contacts")
-def contacts():
-    return render_template('contacts.html', title="О нас")
+@app.route("/faq")
+def faq():
+    return render_template('faq.html', title="ЧаВо")
+
+
+# @app.route("/contacts")
+# def contacts():
+#     return render_template('contacts.html', title="О нас")
 
 
 @app.route('/news', methods=['GET', 'POST'])
@@ -116,11 +122,10 @@ def reqister():
         if session.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="Такой пользователь уже существует")
         user = User(
             name=form.name.data,
             email=form.email.data,
-            about=form.about.data,
             uuid=generator(),
             created_date=date()
         )
@@ -143,9 +148,21 @@ def accept(id):
             session.commit()
             return redirect('/')
         else:
-            return render_template('accept.html', form=form, message="неверный код")
+            return render_template('accept.html', form=form, message="Неверный код. Попробуйте ещё раз.")
 
-    return render_template('accept.html', title='Подтверждение', form=form)
+    return render_template('accept.html', title='НАЗВАНИЕ', form=form)
+
+
+# @app.route('/checkemail?key=<string:code>', methods=['GET', 'POST'])
+# def accept(code):
+#     pass
+
+
+# @app.route('/user/<int:id>', methods=['GET', 'POST'])
+# def user(id):
+#     # Если произведён вход, если id входившего равняется id ссылки и акк, на который заходится по ссылке
+#     # подтверждён, то можно редактировать информацию. В противном случае можно только увидеть информацию.
+#     pass
 
 
 @app.route('/news/<int:id>', methods=['GET', 'POST'])
