@@ -17,8 +17,7 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_activate = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     uuid = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                     default=datetime.datetime.now)
+    created_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     news = orm.relation("News", back_populates='user')
 

@@ -11,19 +11,25 @@ from random import choice
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
+import datetime
 
 chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
 app = Flask(__name__)
-# Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
-#               7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
-# DATA = datetime.datetime.now()
-# DATA2 = " ".join([str(i) for i in [str(DATA.hour) + ":" + str(DATA.minute),
-#                                    DATA.day, Dict_Month[DATA.month], DATA.year, "года"]])
+
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+def date():
+    Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
+                  7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
+    DATA = datetime.datetime.now()
+    DATA2 = " ".join([str(i) for i in [str(DATA.hour) + ":" + str(DATA.minute),
+                                       DATA.day, Dict_Month[DATA.month], DATA.year, "года"]])
+    return DATA2
+
 
 def mailing(to, kod):
     addr_from = "our.baraholki@mail.ru"
@@ -115,7 +121,8 @@ def reqister():
             name=form.name.data,
             email=form.email.data,
             about=form.about.data,
-            uuid=generator()
+            uuid=generator(),
+            created_date=date()
         )
         user.set_password(form.password.data)
         session.add(user)
