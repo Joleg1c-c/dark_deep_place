@@ -96,7 +96,7 @@ def reqister():
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
-        return redirect('/accept/{}'.format(user.id))
+        return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -109,7 +109,7 @@ def accept(id):
         if user and user.uuid == form.check.data:
             user.is_activate = True
             session.commit()
-            return redirect('/login')
+            return redirect('/')
         else:
             return render_template('accept.html', form=form, message="неверный код")
 
@@ -167,7 +167,9 @@ def login():
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            if user.is_activate:
+                return redirect('/')
+            return redirect('/accept/{}'.format(user.id))
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)

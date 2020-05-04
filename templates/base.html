@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <a class="navbar-brand" href="#">
         <img src="/static/img/DO_NOT_DELETE.jpg" width="30" height="30" alt="">
     </a>
@@ -21,6 +21,9 @@
             <a class="nav-item nav-link" href="/shop">Магазин</a>
             <a class="nav-item nav-link" href="/about_us">О нас</a>
             <a class="nav-item nav-link" href="/contacts">Контакты</a>
+            {% if current_user.is_authenticated and not current_user.is_activate %}
+                <a class="navbar-brand" href="/accept/{{ current_user.id }}">!!!вы не подтвердили почту!!!</a>
+            {% endif %}
         </div>
     </div>
     {% if current_user.is_authenticated %}
