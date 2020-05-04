@@ -222,11 +222,17 @@ def reqister():
                                    form=form,
                                    message="Такой пользователь уже существует")
 
+        while True:
+            some = generator()
+            if not session.query(User).filter(User.uuid == some).first():
+                true_uuid = some
+                break
+
         # if validate_email(form.email.data, verify=True):
         user = User(
             name=form.name.data,
             email=form.email.data,
-            uuid=generator(),
+            uuid=true_uuid,
             created_date=date()
         )
         user.set_password(form.password.data)
