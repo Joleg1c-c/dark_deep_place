@@ -8,6 +8,10 @@ from data.RegisterForm import RegisterForm
 from data.NewsForm import NewsForm
 from data.AcceptForm import AcceptForm
 from random import choice
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 
 chars = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 
@@ -20,6 +24,26 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+def mailing(to, kod):
+    addr_from = "our.baraholki@mail.ru"
+    addr_to = to
+    password = "bar.bar.bar"
+
+    msg = MIMEMultipart()
+    msg['From'] = addr_from
+    msg['To'] = addr_to
+    msg['Subject'] = 'Подтвердите вашу почту'
+
+    body = "ваш код подтверждения - {}".format(kod)
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP('smtp.mail.ru', 587)
+    server.set_debuglevel(True)
+    server.starttls()
+    server.login(addr_from, password)
+    server.send_message(msg)
+    server.quit()
 
 
 def generator():
@@ -102,10 +126,11 @@ def reqister():
 
 @app.route('/accept/<int:id>', methods=['GET', 'POST'])
 def accept(id):
+    session = db_session.create_session()
+    user = session.query(User).filter(User.id == id).first()
+    mailing(user.email, user.uuid)
     form = AcceptForm()
     if form.validate_on_submit():
-        session = db_session.create_session()
-        user = session.query(User).filter(User.id == id).first()
         if user and user.uuid == form.check.data:
             user.is_activate = True
             session.commit()
