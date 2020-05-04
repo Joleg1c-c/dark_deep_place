@@ -17,7 +17,7 @@
     <h3>Имя может состоять только из русских и латинских букв любого регистра и цифр</h3>
     <p>
         {{ form.email.label }}<br>
-        {{ form.email(class="form-control", type="email") }}<br>
+        {{ form.email(class="form-control", type="email") }}{{mailmessage}}<br>
         {% for error in form.email.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}

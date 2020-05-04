@@ -12,6 +12,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import datetime
+from validate_email import validate_email
 
 chars = 'abcdefghijklnopqrstuvwxyz1234567890'
 
@@ -58,6 +59,16 @@ def generator():
         # проверка кода на существование
         password += choice(chars)
     return password
+
+
+# @app.errorhandler(500)
+# def page_not_found(e):
+#     return render_template('500.html'), 500
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 @app.route("/")
@@ -123,6 +134,8 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже существует")
+
+        # if validate_email(form.email.data, verify=True):
         user = User(
             name=form.name.data,
             email=form.email.data,
@@ -132,7 +145,11 @@ def reqister():
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
-        return redirect('/login')
+        return redirect('/accept/{}'.format(user.id))
+        # else:
+        #     return render_template('register.html', title='Регистрация', form=form,
+        #                            mailmessage="Такой почты несуществует")
+
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -146,7 +163,7 @@ def accept(id):
         if user and user.uuid == form.check.data:
             user.is_activate = True
             session.commit()
-            return redirect('/')
+            return redirect('/login')
         else:
             return render_template('accept.html', form=form, message="Неверный код. Попробуйте ещё раз.")
 
@@ -215,8 +232,8 @@ def login():
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
             if user.is_activate:
+                login_user(user, remember=form.remember_me.data)
                 return redirect('/')
             return redirect('/accept/{}'.format(user.id))
         return render_template('login.html',
