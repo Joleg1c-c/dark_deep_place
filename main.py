@@ -15,12 +15,85 @@ import datetime
 from validate_email import validate_email
 
 chars = 'abcdefghijklnopqrstuvwxyz1234567890'
+spisok_obyazatelnih_symvolov = '(.,:;?!*+%-@[]{}/\_$#)'
+spisok_vozmojnih_symvolov = chars + spisok_obyazatelnih_symvolov + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'  # спросить у учителя
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+def len_passw(passw):
+    if len(passw) < 8 or len(passw) > 24:
+        return 0
+    else:
+        return 1
+
+
+def bad_symvols(passw):
+    bad_symvol = False
+    for i in passw:
+        if i not in spisok_vozmojnih_symvolov:
+            bad_symvol = True
+    if bad_symvol:
+        return 0
+    else:
+        return 1
+
+
+def registr(passw):
+    upper = False
+    lower = False
+    for i in passw:
+        if i.isupper():
+            upper = True
+        elif i.islower():
+            lower = True
+    if not upper or not lower:
+        return 0
+    else:
+        return 1
+
+
+def digit(passw):
+    digit = False
+    wordd = False
+    for i in passw:
+        if i.isdigit():
+            digit = True
+        elif i in "abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            wordd = True
+    if not digit or not wordd:
+        return 0
+    else:
+        return 1
+
+
+def must_symvols(passw):
+    must = False
+    wordd = False
+    for i in passw:
+        if i in spisok_obyazatelnih_symvolov:
+            must = True
+        elif i in "abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            wordd = True
+    if not must or not wordd:
+        return 0
+    else:
+        return 1
+
+
+try:
+    digit()
+    bad_symvols()
+    len_passw()
+    registr()
+    must_symvols()
+    print("ok")
+except Exception:
+    print("error")
 
 
 def date():
@@ -125,6 +198,20 @@ def add_news():
 def reqister():
     form = RegisterForm()
     if form.validate_on_submit():
+        passw = form.password.data
+        List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
+                       sum([digit(passw), registr(passw), must_symvols(passw)])]
+        # print(List_Psw_Lvl)
+        if List_Psw_Lvl[0] != 2:
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Пароль не соответствует требованиям",
+                                   lvl=-1)
+        # else:
+        #     return render_template('register.html', title='Регистрация',
+        #                            form=form,
+        #                            message="",
+        #                            lvl=List_Psw_Lvl[1])
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Регистрация',
                                    form=form,
