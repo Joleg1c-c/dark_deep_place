@@ -17,6 +17,8 @@ from validate_email import validate_email
 chars = 'abcdefghijklnopqrstuvwxyz1234567890'
 spisok_obyazatelnih_symvolov = '(.,:;?!*+%-@[]{}/\_$#)'
 spisok_vozmojnih_symvolov = chars + spisok_obyazatelnih_symvolov + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+name_symvols = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя" + chars +\
+               "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 app = Flask(__name__)
 
@@ -190,9 +192,15 @@ def reqister():
     form = RegisterForm()
     if form.validate_on_submit():
         passw = form.password.data
+        usname = form.name.data
         List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
                         sum([digit(passw), registr(passw), must_symvols(passw)])]
         # print(List_Psw_Lvl)
+        for i in usname:
+            if i not in name_symvols:
+                return render_template('register.html', title='Регистрация',
+                                       form=form,
+                                       message="Имя не соответствует требованиям")
         if List_Psw_Lvl[0] != 2:
             return render_template('register.html', title='Регистрация',
                                    form=form,
