@@ -26,7 +26,18 @@
     </p>
     <p>
         {{ form.password.label }}<br>
-        {{ form.password(class="form-control", type="password") }}<br>
+        {{ form.password(class="form-control", type="password", id="myInput") }}<br>
+        <input type="checkbox" onclick="myFunction()">Показать пороль
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
         {% for error in form.password.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}

@@ -85,17 +85,6 @@ def must_symvols(passw):
         return 1
 
 
-try:
-    digit()
-    bad_symvols()
-    len_passw()
-    registr()
-    must_symvols()
-    print("ok")
-except Exception:
-    print("error")
-
-
 def date():
     Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
                   7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
@@ -115,14 +104,16 @@ def mailing(to, kod):
     msg['To'] = addr_to
     msg['Subject'] = 'Подтвердите вашу почту'
 
-    body = "Ваш код подтверждения - {}".format(kod)
+    body = "Ваш код подтверждения - {}\n" \
+           "Либо вы можете пройти по ссылке, " \
+           "чтобы активировать аакаунт - http://127.0.0.1:5000/checkemail/key={}".format(kod, kod)
     msg.attach(MIMEText(body, 'plain'))
 
     server = smtplib.SMTP('smtp.mail.ru', 587)
     server.set_debuglevel(True)
     server.starttls()
     server.login(addr_from, password)
-    server.send_message(msg)
+    # server.send_message(msg)
     server.quit()
 
 
@@ -200,7 +191,7 @@ def reqister():
     if form.validate_on_submit():
         passw = form.password.data
         List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
-                       sum([digit(passw), registr(passw), must_symvols(passw)])]
+                        sum([digit(passw), registr(passw), must_symvols(passw)])]
         # print(List_Psw_Lvl)
         if List_Psw_Lvl[0] != 2:
             return render_template('register.html', title='Регистрация',
@@ -263,9 +254,12 @@ def accept(id):
     return render_template('accept.html', title='НАЗВАНИЕ', form=form)
 
 
-# @app.route('/checkemail?key=<string:code>', methods=['GET', 'POST'])
-# def accept(code):
-#     pass
+@app.route('/checkemail/key=<string:code>')
+def checkemail(code):
+    session = db_session.create_session()
+    user = session.query(User).filter(User.uuid == code).first()
+    user.is_activate = True
+    session.commit()
 
 
 # @app.route('/user/<int:id>', methods=['GET', 'POST'])
