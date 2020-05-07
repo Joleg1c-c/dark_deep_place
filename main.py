@@ -7,6 +7,8 @@ from data.LoginForm import LoginForm
 from data.RegisterForm import RegisterForm
 from data.NewsForm import NewsForm
 from data.AcceptForm import AcceptForm
+from data.AdminForm import AdminForm
+from data.RedacuserForm import RedacuserForm
 from random import choice
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -17,7 +19,7 @@ from validate_email import validate_email
 chars = 'abcdefghijklnopqrstuvwxyz1234567890'
 spisok_obyazatelnih_symvolov = '(.,:;?!*+%-@[]{}/\_$#)'
 spisok_vozmojnih_symvolov = chars + spisok_obyazatelnih_symvolov + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-name_symvols = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя" + chars +\
+name_symvols = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя" + chars + \
                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 app = Flask(__name__)
@@ -270,12 +272,113 @@ def checkemail(code):
     session.commit()
 
 
-# @app.route('/user/<int:id>', methods=['GET', 'POST'])
-# def user(id):
-#     # Если произведён вход, если id входившего равняется id ссылки и акк, на который заходится по ссылке
-#     # подтверждён, то можно редактировать информацию. В противном случае можно только увидеть информацию.
-#     pass
 
+@app.route('/user')
+@login_required
+def user():
+    # session = db_session.create_session()
+    # user = session.query(User).filter(User.id == id).first()
+    return render_template('user.html', title='личная страница')
+    # Если произведён вход, если id входившего равняется id ссылки и акк, на который заходится по ссылке
+    # подтверждён, то можно редактировать информацию. В противном случае можно только увидеть информацию.
+
+
+@app.route('/edit_user/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_user(id):
+    if current_user.id == id:
+        form = RedacuserForm()
+        if form.validate_on_submit() and form.submit:
+            session = db_session.create_session()
+            # else:
+            #     return render_template('edit_user.html', title='Регистрация',
+            #                            form=form,
+            #                            message="",
+            #                            lvl=List_Psw_Lvl[1])
+
+            if session.query(User).filter(User.email == form.email.data, User.id != id).first():
+                return render_template('edit_user.html', title='Редактирование профиля',
+                                       form=form,
+                                       message="Такой пользователь уже существует")
+            user = session.query(User).filter(User.id == id).first()
+            if user:
+
+                user.name = form.name.data
+                # в html:
+                # < !-- < p > -->
+                # < !--            {{form.img.label}} < br > -->
+                # < !-- & lt;! & ndash; < form
+                # method = "POST"
+                # enctype = "multipart/form-data" > & ndash; & gt;
+                # -->
+                # < !-- & lt;! & ndash;
+                # {{form.img(type="file")}} < br > & ndash; & gt;
+                # -->
+                # < !-- & lt;! & ndash; < / form > & ndash; & gt;
+                # -->
+                # < !--        {{form.img(type="file", method="POST", enctype="multipart/form-data")}} < br > -->
+                # < !--            { %
+                # for error in form.img.errors %}-->
+                # < !-- < div
+                #
+                # class ="alert alert-danger" role="alert" > -->
+                #
+                # < !--                    {{error}} -->
+                # < !-- < / div > -->
+                # < !--            { % endfor %}-->
+                # < !-- < / p > -->
+                # user.img = form.img.data
+                # if form.img.data:
+                #     im = Image.open(form.img.data)
+                user.contacts = form.contacts.data
+                user.email = form.email.data
+                print(form.password.data)
+                if len(form.password.data) != 0:
+                    if not user.check_password(form.old_password.data):
+                        return render_template('edit_user.html', title='Редактирование профиля',
+                                               form=form,
+                                               message="Неверный текущий пароль")
+                    if form.old_password.data == form.password.data:
+                        return render_template('edit_user.html', title='Редактирование профиля',
+                                               form=form,
+                                               message="Текущий и новый пароли совпадают")
+                    passw = form.password.data
+                    List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
+                                    sum([digit(passw), registr(passw), must_symvols(passw)])]
+                    if List_Psw_Lvl[0] != 2:
+                        return render_template('edit_user.html', title='Редактирование профиля',
+                                               form=form,
+                                               message="Пароль не соответствует требованиям")
+                    # user.password = form.password.data
+                    user.set_password(form.password.data)
+                session.commit()
+                return redirect('/user')
+            else:
+                abort(404)
+        return render_template('edit_user.html', title='Редактирование профиля', form=form)
+    else:
+        abort(404)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+@login_required
+def admin():
+    if current_user.status == "A":
+        form = AdminForm()
+        session = db_session.create_session()
+        users = session.query(User)
+        if form.validate_on_submit() and form.id.data != "None":
+            print(12)
+            try:
+                user = session.query(User).filter(User.id == int(form.id.data), User.status != "A").first()
+                user.status = "B"
+                session.commit()
+                return render_template('admin.html', title='личная страница', users=users, form=form)
+            except Exception as error:
+                print(error)
+        return render_template('admin.html', title='личная страница', users=users, form=form)
+    else:
+        abort(404)
 
 @app.route('/news/<int:id>', methods=['GET', 'POST'])
 @login_required

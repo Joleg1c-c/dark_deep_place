@@ -21,9 +21,6 @@
             <a class="nav-item nav-link" href="/goods">Объявления</a>
             <a class="nav-item nav-link" href="/about">О нас</a>
             <a class="nav-item nav-link" href="/faq">ЧаВо</a>
-            {% if current_user.is_authenticated and not current_user.is_activate %}
-                <a class="navbar-brand" href="/accept/{{ current_user.id }}">!!!вы не подтвердили почту!!!</a>
-            {% endif %}
         </div>
     </div>
     {% if current_user.is_authenticated %}

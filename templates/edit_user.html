@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+    <h1>Редактирование профиля</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(class="form-control", value=current_user.name) }}<br>
+            {% for error in form.name.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.contacts.label }}<br>
+            {{ form.contacts(class="form-control", value=current_user.contacts)}}<br>
+            {% for error in form.contacts.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(class="form-control", value=current_user.email)}}<br>
+            {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+         <p>
+            {{ form.old_password.label }}<br>
+            {{ form.old_password(class="form-control", id="old_myInput", value=current_user.old_password)}}<br>
+            {% for error in form.old_password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+        <input type="checkbox" onclick="old_myFunction()">Показать пороль
+        <script>
+            function old_myFunction() {
+                var x = document.getElementById("old_myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(class="form-control", id="myInput", value=current_user.password)}}<br>
+            {% for error in form.password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+        <input type="checkbox" onclick="myFunction()">Показать пороль
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myInput");
+                if (x.type === "password") {
+                    x.type = "text";
+                } else {
+                    x.type = "password";
+                }
+            }
+        </script>
+        </p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        {{message}}
+    </form>
+ {% endif %}
+
+{% endblock %}

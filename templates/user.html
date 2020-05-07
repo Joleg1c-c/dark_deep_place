@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>{{current_user.name}}</h1>
+
+    <p>Фотография: {{current_user.img}}</p>
+
+    <p>почта: {{current_user.email}}</p>
+
+    <p>контакты для связи: {{current_user.contacts}}</p>
+
+    <p>дата регистрации: {{current_user.created_date}}</p>
+
+     <p>
+        <a class="btn btn-primary " href="/edit_user/{{ current_user.id }}">Редоктировать информациб о себе</a>
+     </p>
+    {% if current_user.status == "A" %}
+            <a class="btn btn-primary " href="/admin">Перейти в подноготную</a>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.status == "A" %}
+
+    <h1>Административная подноготная</h1>
+    <h2>вы есть {{current_user.name}}</h2>
+
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {% for guy in users%}
+            <p>{{guy.id}} - {{guy.name}} | {{guy.email}} | {{guy.status}} | {{guy.contacts}} | {{guy.is_activate}}
+                | {{guy.uuid}} | {{guy.created_data}}
+        {% endfor %}
+        <p>
+            {{ form.id.label }}<br>
+            {{ form.id(class="form-control", value="None") }}<br>
+            {% for error in form.id.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        {{ form.id(type="image", src="\static\img\GG_50_KILL.jpg") }}
+
+    </form>
+
+{% endif %}
+
+{% endblock %}
