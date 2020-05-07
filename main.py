@@ -171,21 +171,22 @@ def faq():
 #     return render_template('contacts.html', title="О нас")
 
 
-@app.route('/news', methods=['GET', 'POST'])
+@app.route('/post', methods=['GET', 'POST'])
 @login_required
-def add_news():
+def add_post():
     form = NewsForm()
     if form.validate_on_submit():
         session = db_session.create_session()
         news = News()
         news.title = form.title.data
+        news.cost = form.cost.data
         news.content = form.content.data
         news.is_private = form.is_private.data
         current_user.news.append(news)
         session.merge(current_user)
         session.commit()
-        return redirect('/')
-    return render_template('news.html', title='Добавление новости',
+        return redirect('/goods')
+    return render_template('new_post.html', title='Добавить объявление',
                            form=form)
 
 
@@ -380,9 +381,9 @@ def admin():
     else:
         abort(404)
 
-@app.route('/news/<int:id>', methods=['GET', 'POST'])
+@app.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_news(id):
+def edit_post(id):
     form = NewsForm()
     if request.method == "GET":
         session = db_session.create_session()
@@ -390,6 +391,7 @@ def edit_news(id):
                                           News.user == current_user).first()
         if news:
             form.title.data = news.title
+            form.cost.data = news.cost
             form.content.data = news.content
             form.is_private.data = news.is_private
         else:
@@ -400,18 +402,19 @@ def edit_news(id):
                                           News.user == current_user).first()
         if news:
             news.title = form.title.data
+            news.cost = form.cost.data
             news.content = form.content.data
             news.is_private = form.is_private.data
             session.commit()
-            return redirect('/')
+            return redirect('/goods')
         else:
             abort(404)
-    return render_template('news.html', title='Редактирование новости', form=form)
+    return render_template('new_post.html', title='Редактирование объявления', form=form)
 
 
-@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+@app.route('/post_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
-def news_delete(id):
+def post_delete(id):
     session = db_session.create_session()
     news = session.query(News).filter(News.id == id,
                                       News.user == current_user).first()
@@ -420,7 +423,7 @@ def news_delete(id):
         session.commit()
     else:
         abort(404)
-    return redirect('/')
+    return redirect('/goods')
 
 
 @app.route('/login', methods=['GET', 'POST'])

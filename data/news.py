@@ -11,18 +11,19 @@ class News(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
-    # Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
-    #               7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
-    # DATA = datetime.datetime.now()
-    # DATA2 = " ".join([str(i) for i in [str(DATA.hour) + ":" + str(DATA.minute),
-    #                                    DATA.day, Dict_Month[DATA.month], DATA.year, "года"]])
+    Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",
+                  7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря"}
+    DATA = datetime.datetime.now()
+    DATA2 = " ".join([str(i) for i in [str(DATA.hour) + ":" + str(DATA.minute),
+                                       DATA.day, Dict_Month[DATA.month], DATA.year, "года"]])
 
-    created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-                                     default=datetime.datetime.now)
     # created_date = sqlalchemy.Column(sqlalchemy.DateTime,
-    #                                  DATA2)
+    #                                  default=datetime.datetime.now)
+    created_date = sqlalchemy.Column(sqlalchemy.String,
+                                     default=DATA2)
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
 
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
