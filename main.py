@@ -273,7 +273,6 @@ def checkemail(code):
     session.commit()
 
 
-
 @app.route('/user')
 @login_required
 def user():
@@ -380,6 +379,7 @@ def admin():
         return render_template('admin.html', title='личная страница', users=users, form=form)
     else:
         abort(404)
+
 
 @app.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
