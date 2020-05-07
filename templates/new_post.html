@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Добавление новости</h1>
 <form action="" method="post">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
@@ -9,6 +8,20 @@
         {{ form.title.label }}<br>
         {{ form.title(class="form-control") }}<br>
         {% for error in form.title.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <!--<form enctype="multipart/form-data" method="post">-->
+        <!--<p>Загрузите фотографии </p>-->
+        <!--<p><input type="file" name="photo" multiple accept="image/*,image/jpeg">-->
+        <!--<input type="submit" value="Отправить"></p>-->
+    <!--</form>-->
+    <p>
+        {{ form.cost.label }}<br>
+        {{ form.cost(class="form-control") }}<br>
+        {% for error in form.cost.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>

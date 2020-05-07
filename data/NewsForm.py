@@ -2,8 +2,10 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, TextAreaField, StringField, BooleanField
 from wtforms.validators import DataRequired
 
+
 class NewsForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()])
-    content = TextAreaField("Содержание")
+    title = StringField('Название', validators=[DataRequired()])
+    cost = StringField('Цена', validators=[DataRequired()])
+    content = TextAreaField("Описание")
     is_private = BooleanField("Личное")
-    submit = SubmitField('Применить')
+    submit = SubmitField('Разместить')
