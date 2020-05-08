@@ -619,12 +619,6 @@ def page_not_found(e):
 def page_not_found(e):
     return render_template('error.html', title="GAMEPYED - OOPS", err=401), 401
 
-
-@app.errorhandler(402)
-def page_not_found(e):
-    return render_template('error.html', title="GAMEPYED - OOPS", err=402), 402
-
-
 @app.errorhandler(403)
 def page_not_found(e):
     return render_template('error.html', title="GAMEPYED - OOPS", err=403), 403
@@ -827,10 +821,10 @@ def accept(id):
                 return render_template('accept.html', form=form,
                                        title="GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК",
                                        message="Неверный код. Попробуйте ещё раз.", userimg=False)
-    if user.img:
-        return render_template('accepted.html', title='GAMEPYED - ВАШ ПОЧТОВЫЙ ЯЩИК ПОДТВЕРЖДЁН', userimg=user.id)
-    else:
-        return render_template('accepted.html', title='GAMEPYED - ВАШ ПОЧТОВЫЙ ЯЩИК ПОДТВЕРЖДЁН', userimg=False)
+    # if user.img:
+    #     return render_template('accepted.html', title='GAMEPYED - ВАШ ПОЧТОВЫЙ ЯЩИК ПОДТВЕРЖДЁН', userimg=user.id)
+    # else:
+    return render_template('accept.html', title='GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК', form=form)
 
 
 @app.route('/checkemail/key=<string:code>')
@@ -919,7 +913,7 @@ def admin():
             print(12)
             try:
                 user = session.query(User).filter(User.id == int(form.id.data),
-                                                  User.status != "A" and User.status != "B").first()
+                                                  User.status != "A").first()
                 user.status = "B"
                 session.commit()
                 return render_template('admin.html', title='личная страница', users=users, form=form)
