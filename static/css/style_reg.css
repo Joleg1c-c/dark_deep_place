@@ -1,0 +1,23 @@
+.container {
+width: 500px;
+height: 660px;
+background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);
+margin: 50px auto 0px auto;
+text-align: center;
+color: #fff;
+border-radius: 5%;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+text-align: center;
+width: 410px;
+height: 40px;
+font-size: 18px;
+margin: -5px auto 0 auto;
+}
+
+input[type="submit"] {
+margin: 10px auto 0 auto;
+}
+
+.progress { width: 410px; margin: 50px auto 0px auto; }

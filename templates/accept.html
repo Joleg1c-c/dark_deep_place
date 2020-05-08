@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Заголовок</h1><br>
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_accept.css">
 <form action="" method="post">
+    {% if userimg %}
+    <img src="/static/img/users/avatar/{{ userimg }}.jpg" width="150" height="150">
+{% else %}
+<img src="/static/img/user.png">
+{% endif %}
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
-    <h3>введите код, который вам выслали по почте</h3><br>
+    <h6>Регистрация окончена! На твой почтовый ящик отправлено письмо с подтверждением
+        регистрации. Следуй указаниям в нём. Если письмо не пришло в течение 15 минут, проверь папку «Спам».</h6>
     <p>
-        {{ form.check.label }}<br>
-        {{ form.check(class="form-control") }}<br>
+        {{ form.check.label }}
+        {{ form.check(class="form-control") }}
         {% for error in form.check.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -17,6 +24,6 @@
 
     </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
+    <h5>{{message}}</h5>
 </form>
 {% endblock %}

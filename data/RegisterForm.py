@@ -1,21 +1,14 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField
 from wtforms import SubmitField, TextAreaField, StringField, PasswordField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
 
 
 class RegisterForm(FlaskForm):
-    name = StringField('Имя пользователя', validators=[DataRequired()])
-    email = EmailField('Почта', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    # about = TextAreaField("Немного о себе")
+    img = FileField('')
+    name = StringField('', validators=[DataRequired()])
+    email = EmailField('', validators=[DataRequired()])
+    password = PasswordField('', validators=[DataRequired()])
+    password_again = PasswordField('', validators=[DataRequired()])
     submit = SubmitField('Зарегистрироваться')
-
-# class RegisterForm(FlaskForm):
-#     email = EmailField('Почта', validators=[DataRequired()])
-#     password = PasswordField('Пароль', validators=[DataRequired()])
-#     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-#     name = StringField('Имя пользователя', validators=[DataRequired()])
-#     about = TextAreaField("Немного о себе")
-#     submit = SubmitField('Войти')

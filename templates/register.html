@@ -1,33 +1,114 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Регистрация</h1>
-<form action="" method="post">
+<!--<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">-->
+<!--<link rel="stylesheet" type="text/css" href="/static/css/style_reg.css">-->
+<!--<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-example.css">-->
+<script src="https://www.jqueryscript.net/demo/Password-Strength-Meter-Bootstrap/dist/js/password-score.js"></script>
+<script src="https://www.jqueryscript.net/demo/Password-Strength-Meter-Bootstrap/dist/js/password-score-options.js"></script>
+<script src="/static/assets/bootstrap-strength-meter.js"></script>
+<script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-progress-bar').strengthMeter('progressBar', {
+                                                    container: $('#example-progress-bar-container')
+                                                });
+                                            });
+
+
+</script>
+
+<form action="" method="post" enctype="multipart/form-data">
+<!--    <img src="static/img/user.png">-->
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
+
+    <div class="imginp" align="center" style="background-image: url(/static/img/user_reg.png);
+              width: 150px;
+              height: 150px;
+              margin: -60 px 0 30px 0;
+              border: 3px solid #fbef00;
+              border-radius: 50%;">
+        {{ form.img(class="custom-file-input") }}
+    </div>
+
     <p>
-        {{ form.name.label }}<br>
-        {{ form.name(class="form-control") }}<br>
+        {{ form.name.label }}
+        {{ form.name(class="form-control", placeholder="ФИО или название организации",
+        title="Имя может содержать буквы русского и латинского алфавитов
+        (А-я, A–z), цифры (0–9) и пробел. Максимальная длина имени - 44 символа.",
+        data_toggle="tooltip", data_placement="top") }}
         {% for error in form.name.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
     </p>
-    <h3>Имя может состоять только из русских и латинских букв любого регистра и цифр</h3>
+    {% endfor %}
+    </p>
     <p>
-        {{ form.email.label }}<br>
-        {{ form.email(class="form-control", type="email") }}{{mailmessage}}<br>
+        {{ form.email.label }}
+        {{ form.email(class="form-control", type="email", placeholder="Адрес электронной почты")
+        }}{{mailmessage}}
         {% for error in form.email.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
     </p>
     <p>
-        {{ form.password.label }}<br>
-        {{ form.password(class="form-control", type="password", id="myInput") }}<br>
-        <input type="checkbox" onclick="myFunction()">Показать пороль
+        {{ form.password.label }}
+        {{ form.password(class="form-control", type="password", id="myInput",
+        placeholder="Пароль", title="Пароль может содержать буквы латинского алфавита
+        (A–z), цифры (0–9) и специальные символы ( . , : ; ? ! * + % - @ ( ) [ ] { } / _ $ # ).
+        Минимальная длина пароля - 8 символов, максимальная - 24 символа.",
+        data_toggle="tooltip", data_placement="top") }}
+
+
+        <!--        <input type="text" placeholder="Password ..." class="form-control" id="example-progress-bar"/>-->
+        <!--            <div class="col-sm-4" id="example-progress-bar-container"></div>ВЕРНЫЙ-->
+        <!--    <div class="progress">-->
+        <!--        <div class="progress-bar progress-bar-striped" id="example-progress-bar-container" role="progressbar"-->
+        <!--         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">-->
+        <!--        </div>-->
+        <!--    </div>-->
+
+        <!--    <div class="progressbarchange">-->
+        <!--        {% if lvl == -1 %}-->
+        <!--        <div class="progress">-->
+        <!--            <div class="progress-bar progress-bar-striped" role="progressbar"-->
+        <!--                 title="Недопустимый пароль" data-toggle="tooltip" data-placement="top"-->
+        <!--                 style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        {% elif lvl == 0 %}-->
+        <!--        <div class="progress">-->
+        <!--            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"-->
+        <!--                 title="Очень слабый пароль" data-toggle="tooltip" data-placement="top"-->
+        <!--                 style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        {% elif lvl == 1 %}-->
+        <!--        <div class="progress">-->
+        <!--            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"-->
+        <!--                 title="Слабый пароль" data-toggle="tooltip" data-placement="top"-->
+        <!--                 style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        {% elif lvl == 2 %}-->
+        <!--        <div class="progress">-->
+        <!--            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"-->
+        <!--                 title="Хороший пароль" data-toggle="tooltip" data-placement="top"-->
+        <!--                 style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        {% elif lvl == 3 %}-->
+        <!--        <div class="progress">-->
+        <!--            <div class="progress-bar progress-bar-striped bg-success" role="progressbar"-->
+        <!--                 title="Надёжный пароль" data-toggle="tooltip" data-placement="top"-->
+        <!--                 style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        {% endif %}-->
+        <!--    </div>-->
+        <input type="checkbox" onclick="myFunction()">Показать пароль
         <script>
             function myFunction() {
                 var x = document.getElementById("myInput");
@@ -37,57 +118,28 @@
                     x.type = "password";
                 }
             }
+
+
         </script>
         {% for error in form.password.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
     </p>
     <p>
-    {% if lvl == -1 %}
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped" role="progressbar"
-                style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-    {% elif lvl == 0 %}
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
-                style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-    {% elif lvl == 1 %}
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
-                style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-    {% elif lvl == 2 %}
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
-                style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-    {% elif lvl == 3 %}
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-                style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-    {% endif %}
-    </p>
-    <p>
-        {{ form.password_again.label }}<br>
-        {{ form.password_again(class="form-control", type="password") }}<br>
+        {{ form.password_again.label }}
+        {{ form.password_again(class="form-control", type="password", placeholder="Подтвердить") }}
         {% for error in form.password_again.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
     </p>
 
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
+    <p>{{ form.submit(type="submit", class="btn btn-danger") }}</p>
+    <h5>{{message}}</h5>
+
+
 </form>
 {% endblock %}

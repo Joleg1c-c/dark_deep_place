@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Acrom';
+	src: url('/static/fonts/Acrom Regular/Acrom-Regular.eot');
+	src: url('/static/fonts/Acrom Regular/Acrom-Regular.eot?#iefix') format('embedded-opentype'),
+		url('/static/fonts/Acrom Regular/Acrom-Regular.woff') format('woff'),
+		url('/static/fonts/Acrom Regular/Acrom-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal; }
+
+h1 { color: #fbef00; }
+h2 { color: #ffe484; }
+
+body { background-color: #fff; font-family: "Acrom", sans-serif;
+background-image: url("/static/img/background.png"); }
+
+nav { background: linear-gradient(270deg, rgba(69, 49, 99, 1), rgba(146, 60, 153, 0.7) 100%); }
+.navbar-light .navbar-nav .nav-link { color: #cbbde2; }
+.navbar-light .navbar-nav .nav-link.active { color: #fff; font-weight: 600; }
+.navbar-light .navbar-nav .nav-link:hover { color: #fff; }
+.navbar-expand-lg .navbar-nav .nav-link { font-size: 20px; padding-right: .9rem; padding-left: .9rem; }
+
+.Btn_Reg_Log { vertical-align: middle; }
+
+.dropdown-item:hover { background: linear-gradient(270deg, rgba(69, 49, 99, 1), rgba(146, 60, 153, 0.7) 100%); }
+.dropdown-item:focus { background: linear-gradient(270deg, rgba(69, 49, 99, 1), rgba(146, 60, 153, 0.7) 100%); }
+
+.particles-js { height: 100%; display: block; }
+
+.rainbow-animated {
+  background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: rainbow 20s ease infinite;
+  animation: rainbow 20s ease infinite;
+  font-size: 24px;
+  line-height: 25px;
+}
+@-webkit-keyframes rainbow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+@keyframes rainbow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.premiumrainbow {
+  background: linear-gradient(to bottom right, #453163, #453163, #fbef00, #453163, #453163);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+  line-height: 40px;
+}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_accept.css">
+    {% if userimg %}
+    <img src="/static/img/users/avatar/{{ userimg }}.jpg" width="150" height="150">
+{% else %}
+<img src="/static/img/user.png">
+{% endif %}
+<h4>Ваш почтовый ящик подтверждён! Вы можете закрыть это окно.</h4>
+<div class="tohomepage">
+    <a href="/">ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+</div>
+{% endblock %}

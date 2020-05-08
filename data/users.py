@@ -14,12 +14,12 @@ class User(SqlAlchemyBase, UserMixin):
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
     status = sqlalchemy.Column(sqlalchemy.String, default="N")
-    contacts = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    contacts = sqlalchemy.Column(sqlalchemy.JSON, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_activate = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     uuid = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     created_date = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    img = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    img = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
 
     news = orm.relation("News", back_populates='user')
 

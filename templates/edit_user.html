@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
+<style>
+    .container {
+height: 900px;
+</style>
 {% if current_user.is_authenticated %}
-    <h1>Редактирование профиля</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.name.label }}<br>
-            {{ form.name(class="form-control", value=current_user.name) }}<br>
+            {{ form.name.label }}
+            {{ form.name(class="form-control", value=current_user.name, placeholder="ФИО или название организации",
+        title="Имя может содержать буквы русского и латинского алфавитов
+        (А-я, A–z), цифры (0–9) и пробел. Максимальная длина имени - 44 символа.",
+        data_toggle="tooltip", data_placement="top") }}
             {% for error in form.name.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
@@ -16,26 +23,52 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.contacts.label }}<br>
-            {{ form.contacts(class="form-control", value=current_user.contacts)}}<br>
-            {% for error in form.contacts.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(class="form-control", value=current_user.email)}}<br>
+            {{ form.email.label }}
+            {{ form.email(class="form-control", value=current_user.email, placeholder="Адрес электронной почты")}}
             {% for error in form.email.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
                 </div>
             {% endfor %}
         </p>
+<!--        <p>-->
+<!--            {{ form.contacts.label }}<br>-->
+<!--            {{ form.contacts(class="form-control", value=current_user.contacts)}}<br>-->
+<!--            {% for error in form.contacts.errors %}-->
+<!--                <div class="alert alert-danger" role="alert">-->
+<!--                    {{ error }}-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--        </p>-->
+        <div class="input-group mb-3">
+    <div class=".col-3">
+    <select class="custom-select" id="inputGroupSelect" style="
+height: 40px;
+font-size: 16px;
+margin: 30px auto 0px auto;">
+        <option value="1">Тел</option>
+        <option value="2">VK</option>
+        <option value="3">TG</option>
+        <option value="4">Inst</option>
+        <option value="5">FB</option>
+        <option value="6">OK</option>
+    </select>
+    </div>
+    <input type="text" class="form-control" placeholder="Ссылка/никнейм">
+    <div class="input-group-append" id="inputGroupButton">
+        <button class="btn btn-outline-success" type="button" style="text-align: center;
+height: 40px;
+font-size: 18px;
+margin: 30px auto 0px auto;
+"><i class="fas fa-plus"></i>
+        </button>
+    </div>
+</div>
+
          <p>
-            {{ form.old_password.label }}<br>
-            {{ form.old_password(class="form-control", id="old_myInput", value=current_user.old_password)}}<br>
+            {{ form.old_password.label }}
+            {{ form.old_password(class="form-control", id="old_myInput", value=current_user.old_password,
+             placeholder="Текущий пароль")}}
             {% for error in form.old_password.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
@@ -55,8 +88,12 @@
         </script>
         </p>
         <p>
-            {{ form.password.label }}<br>
-            {{ form.password(class="form-control", id="myInput", value=current_user.password)}}<br>
+            {{ form.password.label }}
+            {{ form.password(class="form-control", id="myInput", value=current_user.password,
+            placeholder="Новый пароль", title="Пароль может содержать буквы латинского алфавита
+        (A–z), цифры (0–9) и специальные символы ( . , : ; ? ! * + % - @ ( ) [ ] { } / _ $ # ).
+        Минимальная длина пароля - 8 символов, максимальная - 24 символа.",
+        data_toggle="tooltip", data_placement="top")}}
             {% for error in form.password.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}

@@ -1,23 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Авторизация</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(class="form-control", type="email") }}<br>
-            {% for error in form.email.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(class="form-control", type="password", id="myInput") }}<br>
-            <input type="checkbox" onclick="myFunction()">Показать пороль
-            <script>
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_log.css">
+<form action="" method="post">
+    <img src="static/img/user.png">
+    {{ form.hidden_tag() }}
+    <p>
+    <div class="input-group 1">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="icon1"
+                  style="height: 40px; text-align: center; margin: 30px auto 0px auto;"><i
+                    class="far fa-envelope"></i></span>
+        </div>
+        {{ form.email(class="form-control", type="email", placeholder="Электронная почта",
+    aria_describedby="icon1") }}
+        {% for error in form.email.errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
+    </div>
+    </p>
+    <p>
+    <div class="input-group 2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="icon2"
+                  style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fas fa-lock"></i></span>
+        </div>
+        {{ form.password(class="form-control", type="password",
+        id="myInput", placeholder="Пароль", aria_describedby="icon2") }}
+    </div>
+    <input type="checkbox" onclick="myFunction()">Показать пароль
+    <script>
                 function myFunction() {
                     var x = document.getElementById("myInput");
                     if (x.type === "password") {
@@ -26,15 +42,15 @@
                         x.type = "password";
                     }
                 }
-            </script>
-            {% for error in form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        <div>{{ message }}</div>
-    </form>
+    </script>
+    {% for error in form.password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    </p>
+    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    <h5>{{ message }}</h5>
+</form>
 {% endblock %}

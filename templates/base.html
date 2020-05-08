@@ -7,48 +7,110 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <title>{{title}}</title>
+<!--    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous" defer></script>
+<!--    <script src="https://code.jquery.com/jquery-2.1.1.min.js"-->
+<!--    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"-->
+<!--            crossorigin="anonymous" defer></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous" defer></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" defer></script>
+    <script>
+        $(document).ready(function () { $('[data-toggle="tooltip"]').tooltip(); });
+    </script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>-->
+    <script src="/static/assets/main.js" defer></script>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand">
-        <img src="/static/img/DO_NOT_DELETE.jpg" width="30" height="30" alt="">
-    </a>
-    <div class="collapse navbar-collapse">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">НАЗВАНИЕ <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/goods">Объявления</a>
-            <a class="nav-item nav-link" href="/about">О нас</a>
-            <a class="nav-item nav-link" href="/faq">ЧаВо</a>
-        </div>
-    </div>
-    {% if current_user.is_authenticated %}
-        <div class="btn-group">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                {{ current_user.name }}
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/logout">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">
+<!--                <img src="/static/img/gamepyed.png" width="375" height="65" alt="">-->
+                <img src="/static/img/gamepyed.pn" width="375" height="65" alt="">
+            </a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav">
+                    {% if title == "GAMEPYED - ОБЪЯВЛЕНИЯ" %}
+                    <a class="nav-item nav-link active" href="/goods">ОБЪЯВЛЕНИЯ</a>
+                    <a class="nav-item nav-link" href="/premium" style="color: #fffa8a;"
+                       onmouseover="this.style.color='#fbef00';" onmouseout="this.style.color='#fffa8a';">PREMIUM</a>
+                    <a class="nav-item nav-link" href="/about">О ПРОЕКТЕ</a>
+                    <a class="nav-item nav-link" href="/faq">FAQ</a>
+                    {% elif title == "GAMEPYED - PREMIUM" %}
+                    <a class="nav-item nav-link" href="/goods">ОБЪЯВЛЕНИЯ</a>
+                    <a class="nav-item nav-link active" href="/premium" style="color: #fbef00;">PREMIUM</a>
+                    <a class="nav-item nav-link" href="/about">О ПРОЕКТЕ</a>
+                    <a class="nav-item nav-link" href="/faq">FAQ</a>
+                    {% elif title == "GAMEPYED - О ПРОЕКТЕ" %}
+                    <a class="nav-item nav-link" href="/goods">ОБЪЯВЛЕНИЯ</a>
+                    <a class="nav-item nav-link" href="/premium" style="color: #fffa8a;"
+                       onmouseover="this.style.color='#fbef00';" onmouseout="this.style.color='#fffa8a';">PREMIUM</a>
+                    <a class="nav-item nav-link active" href="/about">О ПРОЕКТЕ</a>
+                    <a class="nav-item nav-link" href="/faq">FAQ</a>
+                    {% elif title == "GAMEPYED - FAQ" %}
+                    <a class="nav-item nav-link" href="/goods">ОБЪЯВЛЕНИЯ</a>
+                    <a class="nav-item nav-link" href="/premium" style="color: #fffa8a;"
+                       onmouseover="this.style.color='#fbef00';" onmouseout="this.style.color='#fffa8a';">PREMIUM</a>
+                    <a class="nav-item nav-link" href="/about">О ПРОЕКТЕ</a>
+                    <a class="nav-item nav-link active" href="/faq">FAQ</a>
+                    {% else %}
+                    <a class="nav-item nav-link" href="/goods">ОБЪЯВЛЕНИЯ</a>
+                    <a class="nav-item nav-link" href="/premium" style="color: #fffa8a;"
+                       onmouseover="this.style.color='#fbef00';" onmouseout="this.style.color='#fffa8a';">PREMIUM</a>
+                    <a class="nav-item nav-link" href="/about">О ПРОЕКТЕ</a>
+                    <a class="nav-item nav-link" href="/faq">FAQ</a>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <!-- <a class="navbar-brand" href="/logout">{{ current_user.name }}</a> -->
-    {% else %}
-        <p>
-            <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
-            <a class="btn btn-success" href="/login">Войти</a>
-        </p>
-    {% endif %}
-    </nav>
-</header>
-<!-- Begin page content -->
-<main role="main" class="container">
-    {% block content %}{% endblock %}
-</main>
+            {% if current_user.is_authenticated %}
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                style="">
+                    {{current_user.name}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="width: 184px;
+                background: linear-gradient(270deg, rgba(69, 49, 99, 1), rgba(146, 60, 153, 0.7) 100%);">
+                    <a class="dropdown-item" href="/user" style="text-align: center; color: #fbef00;">Мой профиль</a>
+                    <a class="dropdown-item" href="/edit_user/{{current_user.id}}"
+                       style="text-align: center; size: 160px; color: #fbef00;">Редактировать<br>профиль</a>
+                    <div class="dropdown-divider" style="border-top: 1px solid #fbef00;"></div>
+                    <a class="dropdown-item" href="/logout" style="text-align: center; color: #fbef00;">Выйти</a>
+                </div>
+            </div>
+            {% else %}
+            <div class="Btn_Reg_Log">
+                {% if title == "GAMEPYED - РЕГИСТРАЦИЯ" %}
+                <a class="btn btn-primary" href="/login"><i class="fas fa-sign-in-alt"></i></a>
+                <a class="btn btn-danger" href="/register" style="background-color: transparent;">Зарегистрироваться</a>
+                {% elif title == "GAMEPYED - АВТОРИЗАЦИЯ" %}
+                <a class="btn btn-primary" href="/login" style="background-color: transparent;"><i
+                        class="fas fa-sign-in-alt"></i></a>
+                <a class="btn btn-danger" href="/register">Зарегистрироваться</a>
+                {% else %}
+                <a class="btn btn-primary" href="/login"><i class="fas fa-sign-in-alt"></i></a>
+                <a class="btn btn-danger" href="/register">Зарегистрироваться</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </nav>
+    </header>
+<!--<div id="particles-js">-->
+    <!-- Begin page content -->
+    <main role="main" class="container">
+            {% block content %} {% endblock %}
+    </main>
+<!--    </div>-->
 </body>
 </html>

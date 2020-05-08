@@ -1,22 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
+{% if current_user.img %}
+<img src="static/img/users/avatar/{{ current_user.id }}.jpg" width="150" height="150">
+{% else %}
+<img src="static/img/user.png">
+{% endif %}
+<h1>{{current_user.name}}</h1>
+{% if current_user.status == "N" %}
+<p style="color: #fff; font-size: 24px; margin-bottom: 2rem;">ПОЛЬЗОВАТЕЛЬ</p>
+{% elif current_user.status == "P" %}
+<div class="premiumrainbow"><p style="font-size: 24px; margin-bottom: 2rem;">ПРЕМИУМ</p></div>
+{% elif current_user.status == "A" %}
+<div class="rainbow-animated"><p style="color: #ffe484; margin-bottom: 2rem;">АДМИН</p></div>
+{% endif %}
+<p>С нами с <h4 style="color: #fbef00;">{{current_user.created_date}}</h4></p>
+<p>Адрес электронной почты <h4 style="color: #fbef00;">{{current_user.email}}</h4></p>
+<!--    {% if current_user.contacts %}-->
+<!--    <p>Контакты {{current_user.contacts}}</p>-->
+<!--    {% else %}-->
+<!--    <p>Контакты<h4 style="color: #fbef00;">...</h4></p>-->
+<!--    {% endif %}-->
+<p>Контакты</p>
+{% if current_user.contacts %}
+{% for key in current_user.contacts %}
+{% if key == "tl" %}
+<h4> <i class="fas fa-mobile-alt"></i> {{ current_user.contacts[key] }}</h4>
+{% elif key == "vk" %}
+<h4> <i class="fab fa-vk"></i> {{ current_user.contacts[key] }}</h4>
+{% elif key == "tg" %}
+<h4> <i class="fab fa-telegram-plane"></i> {{ current_user.contacts[key] }}</h4>
+{% elif key == "it" %}
+<h4> <i class="fab fa-instagram"></i> {{ current_user.contacts[key] }}</h4>
+{% elif key == "fb" %}
+<h4> <i class="fab fa-facebook"></i> {{ current_user.contacts[key] }}</h4>
+{% elif key == "ok" %}
+<h4> <i class="fab fa-odnoklassniki"></i> {{ current_user.contacts[key] }}</h4>
+{% endif %}
+{% endfor %}
+{% else %}
+<p>...</p>
+{% endif %}
 
-    <h1>{{current_user.name}}</h1>
 
-    <p>Фотография: {{current_user.img}}</p>
-
-    <p>почта: {{current_user.email}}</p>
-
-    <p>контакты для связи: {{current_user.contacts}}</p>
-
-    <p>дата регистрации: {{current_user.created_date}}</p>
-
-     <p>
-        <a class="btn btn-primary " href="/edit_user/{{ current_user.id }}">Редоктировать информациб о себе</a>
-     </p>
-    {% if current_user.status == "A" %}
-            <a class="btn btn-primary " href="/admin">Перейти в подноготную</a>
-    {% endif %}
+<p>
+    <a class="btn btn-primary" href="/edit_user/{{ current_user.id }}">Редактировать информацию</a>
+</p>
+{% if current_user.status == "A" %}
+<a class="btn btn-danger" href="/admin">Memento Mori</a>
+{% endif %}
 
 {% endblock %}
