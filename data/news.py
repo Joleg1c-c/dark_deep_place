@@ -10,6 +10,7 @@ class News(SqlAlchemyBase):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
+    category = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)

@@ -1,12 +1,610 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="" method="post">
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_new_post.css">
+
+{% if whattodo == "c" %}
+    <div class="accordion" id="accordion">
+        <div class="card">
+            <div class="card-header" id="heading1">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse1"
+                            aria-expanded="false" aria-controls="collapse1">
+                        Игровые приставки
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="accordion" id="accordion11">
+                        <div class="card">
+                            <div class="card-header" id="heading11">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse11"
+                                            aria-expanded="false" aria-controls="collapse11">
+                                        Видеоигры
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordion11">
+                                <div class="card-body">
+                                    <a href="/post/111">PS4</a><br>
+                                    <a href="/post/112">PS3</a><br>
+                                    <a href="/post/113">Xbox One</a><br>
+                                    <a href="/post/114">Xbox 360</a><br>
+                                    <a href="/post/115">Nintendo Switch</a><br>
+                                    <a href="/post/116">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading12">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse12"
+                                            aria-expanded="false" aria-controls="collapse12">
+                                        Игровые приставки
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordion11">
+                                <div class="card-body">
+                                    <a href="/post/121">PS4</a><br>
+                                    <a href="/post/122">PS3</a><br>
+                                    <a href="/post/123">Xbox One</a><br>
+                                    <a href="/post/124">Xbox 360</a><br>
+                                    <a href="/post/125">Nintendo Switch</a><br>
+                                    <a href="/post/126">Ретро</a><br>
+                                    <a href="/post/127">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading13">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse13"
+                                            aria-expanded="false" aria-controls="collapse13">
+                                        Геймпады и контроллеры
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordion11">
+                                <div class="card-body">
+                                    <a href="/post/131">PlayStation</a><br>
+                                    <a href="/post/132">Xbox</a><br>
+                                    <a href="/post/133">Другие приставки</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading14">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse14"
+                                            aria-expanded="false" aria-controls="collapse14">
+                                        Аксессуары и прочее
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse14" class="collapse" aria-labelledby="heading14" data-parent="#accordion11">
+                                <div class="card-body">
+                                    <a href="/post/141">Чехлы, кейсы, наклейки</a><br>
+                                    <a href="/post/142">Зарядные устройства и аккумуляторы</a><br>
+                                    <a href="/post/143">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="heading2">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2"
+                            aria-expanded="false" aria-controls="collapse2">
+                        ПК
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="accordion" id="accordion21">
+                        <div class="card">
+                            <div class="card-header" id="heading21">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse21"
+                                            aria-expanded="false" aria-controls="collapse21">
+                                        Видеоигры
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#accordion21">
+                                <div class="card-body">
+                                    <a href="/post/211">Диски</a><br>
+                                    <a href="/post/212">Ключи и гифты</a><br>
+                                    <a href="/post/213">Дополнения</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading22">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse22"
+                                            aria-expanded="false" aria-controls="collapse22">
+                                        Комплектующие ПК
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse22" class="collapse" aria-labelledby="heading22" data-parent="#accordion21">
+                                <div class="card-body">
+                                    <a href="/post/221">Видеокарты</a><br>
+                                    <a href="/post/222">Процессоры</a><br>
+                                    <a href="/post/223">Жёсткие диски</a><br>
+                                    <a href="/post/224">Блоки питыния</a><br>
+                                    <a href="/post/225">Оперативная память</a><br>
+                                    <a href="/post/226">Материнские платы</a><br>
+                                    <a href="/post/227">Мониторы</a><br>
+                                    <a href="/post/228">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading23">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse23"
+                                            aria-expanded="false" aria-controls="collapse23">
+                                        Игровые гарнитуры
+                                    </button>
+                                </h2>
+                            </div>
+
+                            <div id="collapse23" class="collapse" aria-labelledby="heading23" data-parent="#accordion21">
+                                <div class="card-body">
+                                    <a href="/post/231">Клавиатуры</a><br>
+                                    <a href="/post/232">Мыши</a><br>
+                                    <a href="/post/233">Наушники</a><br>
+                                    <a href="/post/234">Флэш-накопители</a><br>
+                                    <a href="/post/235">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="heading3">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3"
+                            aria-expanded="false" aria-controls="collapse3">
+                        Цифровая электроника
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="accordion" id="accordion31">
+                        <div class="card">
+                            <div class="card-header" id="heading31">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse31"
+                                            aria-expanded="false" aria-controls="collapse31">
+                                        Смартфоны и планшеты
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse31" class="collapse" aria-labelledby="heading31" data-parent="#accordion31">
+                                <div class="card-body">
+                                    <a href="/post/311">Apple</a><br>
+                                    <a href="/post/312">Samsung</a><br>
+                                    <a href="/post/313">Huawei</a><br>
+                                    <a href="/post/314">Xiaomi</a><br>
+                                    <a href="/post/315">Meizu</a><br>
+                                    <a href="/post/316">Honor</a><br>
+                                    <a href="/post/317">Прочие марки</a><br>
+                                    <a href="/post/318">Аксессуары</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading32">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse32"
+                                            aria-expanded="false" aria-controls="collapse32">
+                                        Бытовая электроника
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse32" class="collapse" aria-labelledby="heading32" data-parent="#accordion31">
+                                <div class="card-body">
+                                    <a href="/post/321">Телевизоры</a><br>
+                                    <a href="/post/322">Принтеры и МФУ</a><br>
+                                    <a href="/post/323">Техника для кухни</a><br>
+                                    <a href="/post/324">Техника для дома</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading33">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse33"
+                                            aria-expanded="false" aria-controls="collapse33">
+                                        "Умный дом"
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse33" class="collapse" aria-labelledby="heading33" data-parent="#accordion31">
+                                <div class="card-body">
+                                    <a href="/post/331">Колонки</a><br>
+                                    <a href="/post/332">Весы</a><br>
+                                    <a href="/post/333">Датчики и пульты</a><br>
+                                    <a href="/post/334">Лампы</a><br>
+                                    <a href="/post/335">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/post/340">Прочее</a><br>
+                        <!--<div class="card">-->
+                            <!--<div class="card-header" id="heading34">-->
+                                <!--<h2 class="mb-0">-->
+                                    <!--<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse34"-->
+                                            <!--aria-expanded="false" aria-controls="collapse34">-->
+                                        <!--Прочее-->
+                                    <!--</button>-->
+                                <!--</h2>-->
+                            <!--</div>-->
+                            <!--<div id="collapse34" class="collapse" aria-labelledby="heading34" data-parent="#accordion31">-->
+                                <!--<div class="card-body">-->
+                                    <!--<a href="/post/341">Прочее</a><br>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="heading4">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4"
+                            aria-expanded="false" aria-controls="collapse4">
+                        Сувениры и атрибутика
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="accordion" id="accordion41">
+                        <div class="card">
+                            <div class="card-header" id="heading41">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse41"
+                                            aria-expanded="false" aria-controls="collapse41">
+                                        Фигурки и предметы
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse41" class="collapse" aria-labelledby="heading41" data-parent="#accordion41">
+                                <div class="card-body">
+                                    <a href="/post/411">Коллекционные фигурки</a><br>
+                                    <a href="/post/412">Жетоны, значки, наклейки</a><br>
+                                    <a href="/post/413">Кружки, магниты</a><br>
+                                    <a href="/post/413">Прочее</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading42">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse42"
+                                            aria-expanded="false" aria-controls="collapse42">
+                                        Текстовая атрибутика
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse42" class="collapse" aria-labelledby="heading42" data-parent="#accordion41">
+                                <div class="card-body">
+                                    <a href="/post/421">Книги и комиксы</a><br>
+                                    <a href="/post/422">Артбуки, постеры</a><br>
+                                    <a href="/post/423">Блокноты</a><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="heading43">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse43"
+                                            aria-expanded="false" aria-controls="collapse43">
+                                        Цифровая атрибутика
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse43" class="collapse" aria-labelledby="heading43" data-parent="#accordion41">
+                                <div class="card-body">
+                                    <a href="/post/431">Предметы для игр</a><br>
+                                    <a href="/post/432">Музыка и фильмы</a><br>
+                                    <a href="/post/433">ПО и подписки</a><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% if whattodo == 111 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">PS4</li>
+            {% elif whattodo == 112 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">PS3</li>
+            {% elif whattodo == 113 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Xbox One</li>
+            {% elif whattodo == 114 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Xbox 360</li>
+            {% elif whattodo == 115 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Nintendo Switch</li>
+            {% elif whattodo == 116 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 121 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">PS4</li>
+            {% elif whattodo == 122 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">PS3</li>
+            {% elif whattodo == 123 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Xbox One</li>
+            {% elif whattodo == 124 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Xbox 360</li>
+            {% elif whattodo == 125 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Nintendo Switch</li>
+            {% elif whattodo == 126 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Ретро</li>
+            {% elif whattodo == 127 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 131 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Геймпады и контроллеры</li>
+                <li class="breadcrumb-item active">PlayStation</li>
+            {% elif whattodo == 132 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Геймпады и контроллеры</li>
+                <li class="breadcrumb-item active">Xbox</li>
+            {% elif whattodo == 133 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Геймпады и контроллеры</li>
+                <li class="breadcrumb-item active">Другие приставки</li>
+            {% elif whattodo == 141 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Аксессуары и прочее</li>
+                <li class="breadcrumb-item active">Чехлы, кейсы, наклейки</li>
+            {% elif whattodo == 142 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Аксессуары и прочее</li>
+                <li class="breadcrumb-item active">Зарядные устройства и аккумуляторы</li>
+            {% elif whattodo == 143 %}
+                <li class="breadcrumb-item active">Игровые приставки</li>
+                <li class="breadcrumb-item active">Аксессуары и прочее</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 211 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Диски</li>
+            {% elif whattodo == 212 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Ключи и гифты</li>
+            {% elif whattodo == 213 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Видеоигры</li>
+                <li class="breadcrumb-item active">Дополнения</li>
+            {% elif whattodo == 221 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Видеокарты</li>
+            {% elif whattodo == 222 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Процессоры</li>
+            {% elif whattodo == 223 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Жёсткие диски</li>
+            {% elif whattodo == 224 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Блоки питыния</li>
+            {% elif whattodo == 225 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Оперативная память</li>
+            {% elif whattodo == 226 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Материнские платы</li>
+            {% elif whattodo == 227 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Мониторы</li>
+            {% elif whattodo == 228 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Комплектующие ПК</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 231 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Игровые гарнитуры</li>
+                <li class="breadcrumb-item active">Клавиатуры</li>
+            {% elif whattodo == 232 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Игровые гарнитуры</li>
+                <li class="breadcrumb-item active">Мыши</li>
+            {% elif whattodo == 233 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Игровые гарнитуры</li>
+                <li class="breadcrumb-item active">Наушники</li>
+            {% elif whattodo == 234 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Игровые гарнитуры</li>
+                <li class="breadcrumb-item active">Флэш-накопители</li>
+            {% elif whattodo == 235 %}
+                <li class="breadcrumb-item active">ПК</li>
+                <li class="breadcrumb-item active">Игровые гарнитуры</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 311 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Apple</li>
+            {% elif whattodo == 312 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Samsung</li>
+            {% elif whattodo == 313 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Huawei</li>
+            {% elif whattodo == 314 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Xiaomi</li>
+            {% elif whattodo == 315 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Meizu</li>
+            {% elif whattodo == 316 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Honor</li>
+            {% elif whattodo == 317 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Прочие марки</li>
+            {% elif whattodo == 318 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Смартфоны и планшеты</li>
+                <li class="breadcrumb-item active">Аксессуары</li>
+            {% elif whattodo == 321 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Бытовая электроника</li>
+                <li class="breadcrumb-item active">Телевизоры</li>
+            {% elif whattodo == 322 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Бытовая электроника</li>
+                <li class="breadcrumb-item active">Принтеры и МФУ</li>
+            {% elif whattodo == 323 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Бытовая электроника</li>
+                <li class="breadcrumb-item active">Техника для кухни</li>
+            {% elif whattodo == 324 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Бытовая электроника</li>
+                <li class="breadcrumb-item active">Техника для дома</li>
+            {% elif whattodo == 331 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">"Умный дом"</li>
+                <li class="breadcrumb-item active">Колонки</li>
+            {% elif whattodo == 332 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">"Умный дом"</li>
+                <li class="breadcrumb-item active">Весы</li>
+            {% elif whattodo == 333 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">"Умный дом"</li>
+                <li class="breadcrumb-item active">Датчики и пульты</li>
+            {% elif whattodo == 334 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">"Умный дом"</li>
+                <li class="breadcrumb-item active">Лампы</li>
+            {% elif whattodo == 335 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">"Умный дом"</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 340 %}
+                <li class="breadcrumb-item active">Цифровая электроника</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 411 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Фигурки и предметы</li>
+                <li class="breadcrumb-item active">Коллекционные фигурки</li>
+            {% elif whattodo == 412 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Фигурки и предметы</li>
+                <li class="breadcrumb-item active">Жетоны, значки, наклейки</li>
+            {% elif whattodo == 413 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Фигурки и предметы</li>
+                <li class="breadcrumb-item active">Кружки, магниты</li>
+            {% elif whattodo == 414 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Фигурки и предметы</li>
+                <li class="breadcrumb-item active">Прочее</li>
+            {% elif whattodo == 421 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Текстовая атрибутика</li>
+                <li class="breadcrumb-item active">Книги и комиксы</li>
+            {% elif whattodo == 422 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Текстовая атрибутика</li>
+                <li class="breadcrumb-item active">Артбуки, постеры</li>
+            {% elif whattodo == 423 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Текстовая атрибутика</li>
+                <li class="breadcrumb-item active">Блокноты</li>
+            {% elif whattodo == 431 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Цифровая атрибутика</li>
+                <li class="breadcrumb-item active">Предметы для игр</li>
+            {% elif whattodo == 432 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Цифровая атрибутика</li>
+                <li class="breadcrumb-item active">Музыка и фильмы</li>
+            {% elif whattodo == 433 %}
+                <li class="breadcrumb-item active">Сувениры и атрибутика</li>
+                <li class="breadcrumb-item active">Цифровая атрибутика</li>
+                <li class="breadcrumb-item active">ПО и подписки</li>
+            {% endif %}
+        </ol>
+    </nav>
+    <a href="/post">Изменить категорию</a>
     <p>
-        {{ form.title.label }}<br>
-        {{ form.title(class="form-control") }}<br>
+        {{ form.title.label }}
+        {{ form.title (class="form-control", placeholder="Название") }}
         {% for error in form.title.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -19,8 +617,8 @@
         <!--<input type="submit" value="Отправить"></p>-->
     <!--</form>-->
     <p>
-        {{ form.cost.label }}<br>
-        {{ form.cost(class="form-control") }}<br>
+        {{ form.cost.label }}
+        {{ form.cost(class="form-control", placeholder="Цена, ₽") }}
         {% for error in form.cost.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -28,16 +626,17 @@
         {% endfor %}
     </p>
     <p>
-        {{ form.content.label }}<br>
-        {{ form.content(class="form-control") }}<br>
+        {{ form.content.label }}
+        {{ form.content(class="form-control", placeholder="Описание", style="min-height: 185px; max-height: 185px;", maxlength="800") }}
         {% for error in form.content.errors %}
             <p content="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}
     </p>
-    <p>{{ form.is_private() }} {{ form.is_private.label }}</p>
+    <!--<p>{{ form.is_private() }} {{ form.is_private.label }}</p>-->
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>
+{% endif %}
 {% endblock %}

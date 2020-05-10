@@ -6,15 +6,38 @@
     <a href="post" class="btn btn-secondary">Добавить объявление</a>
 {% endif %}
 {% for item in news%}
+<!--<div class="card mb-3" style="max-width: 540px;">-->
+    <!--<div class="row no-gutters">-->
+        <!--<div class="col-md-4">-->
+            <!--<img src="..." class="card-img" alt="...">-->
+        <!--</div>-->
+        <!--<div class="col-md-8">-->
+            <!--<div class="card-body">-->
+                <!--<h2 class="card-title">{{item.title}}</h2>-->
+                <!--<div>-->
+                    <!--{{item.cost}} ₽-->
+                <!--</div>-->
+                <!--<p class="card-text">от {{item.user.name}}</p>-->
+                <!--<p class="card-text"><small class="text-muted">{{item.created_date}}</small></p>-->
+                <!--{% if current_user.is_authenticated and current_user == item.user %}-->
+                    <!--<div>-->
+                        <!--<a href="/post/{{ item.id }}" class="btn btn-warning">Изменить</a>-->
+                        <!--<a href="/post_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>-->
+                    <!--</div>-->
+                <!--{% endif %}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
 <div class="col-md6 border rounded">
     <h2>{{item.title}}</h2>
-    <div>
+    <div style="color: #fff">
         {{item.cost}} ₽
     </div>
     <!--<div>-->
         <!--{{item.content}}-->
     <!--</div>-->
-    <div>
+    <div style="color: #fff">
         от {{item.user.name}}, {{item.created_date}}
         {% if current_user.is_authenticated and current_user == item.user %}
         <div>

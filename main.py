@@ -693,13 +693,21 @@ def faq():
 
 @app.route('/post', methods=['GET', 'POST'])
 @login_required
-def add_post():
+def add_category():
+    return render_template('new_post.html', title='GAMEPYED - ВЫБОР КАТЕГОРИИ',
+                           whattodo='c')
+
+
+@app.route('/post/<int:whattodo>', methods=['GET', 'POST'])
+@login_required
+def add_post(whattodo):
     form = NewsForm()
     if form.validate_on_submit():
         session = db_session.create_session()
         news = News()
         news.title = form.title.data
         news.cost = form.cost.data
+        news.category = whattodo  # функция переопределения категории
         news.content = form.content.data
         news.is_private = form.is_private.data
         current_user.news.append(news)
@@ -707,7 +715,7 @@ def add_post():
         session.commit()
         return redirect('/goods')
     return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
-                           form=form)
+                           form=form, whattodo=whattodo)
 
 
 @app.route('/register', methods=['GET', 'POST'])
