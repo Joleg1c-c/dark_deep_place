@@ -3,33 +3,19 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
 <link rel="stylesheet" type="text/css" href="/static/css/style_reg.css">
-<!--<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-example.css">-->
-<script src="https://www.jqueryscript.net/demo/Password-Strength-Meter-Bootstrap/dist/js/password-score.js"></script>
-<script src="https://www.jqueryscript.net/demo/Password-Strength-Meter-Bootstrap/dist/js/password-score-options.js"></script>
-<script src="/static/assets/bootstrap-strength-meter.js"></script>
-<script type="text/javascript">
-                                            $(document).ready(function() {
-                                                $('#example-progress-bar').strengthMeter('progressBar', {
-                                                    container: $('#example-progress-bar-container')
-                                                });
-                                            });
-
-
-</script>
-
 <form action="" method="post" enctype="multipart/form-data">
-<!--    <img src="static/img/user.png">-->
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
-
-    <div class="imginp" align="center" style="background-image: url(/static/img/user_reg.png);
+    <div align="center" style="background-image: url(/static/img/user_reg.png);
               width: 150px;
               height: 150px;
               border: 3px solid #fbef00;
-              border-radius: 50%;">
-        {{ form.img(class="custom-file-input") }}
+              border-radius: 50%;
+              margin: 0px auto 0px auto;">
+        {{ form.img(class="custom-file-input", title="Аватар может иметь расширение png, jpg или jpeg.
+        Рекомендуется выбирать изображение одинаковой ширины и высоты, в котором нет альфа-канала.",
+        data_toggle="tooltip", data_placement="bottom") }}
     </div>
-
     <p>
         {{ form.name.label }}
         {{ form.name(class="form-control", placeholder="ФИО или название организации",
@@ -59,54 +45,6 @@
         (A–z), цифры (0–9) и специальные символы ( . , : ; ? ! * + % - @ ( ) [ ] { } / _ $ # ).
         Минимальная длина пароля - 8 символов, максимальная - 24 символа.",
         data_toggle="tooltip", data_placement="top") }}
-
-
-        <!--        <input type="text" placeholder="Password ..." class="form-control" id="example-progress-bar"/>-->
-        <!--            <div class="col-sm-4" id="example-progress-bar-container"></div>ВЕРНЫЙ-->
-        <!--    <div class="progress">-->
-        <!--        <div class="progress-bar progress-bar-striped" id="example-progress-bar-container" role="progressbar"-->
-        <!--         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">-->
-        <!--        </div>-->
-        <!--    </div>-->
-
-        <!--    <div class="progressbarchange">-->
-        <!--        {% if lvl == -1 %}-->
-        <!--        <div class="progress">-->
-        <!--            <div class="progress-bar progress-bar-striped" role="progressbar"-->
-        <!--                 title="Недопустимый пароль" data-toggle="tooltip" data-placement="top"-->
-        <!--                 style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        {% elif lvl == 0 %}-->
-        <!--        <div class="progress">-->
-        <!--            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"-->
-        <!--                 title="Очень слабый пароль" data-toggle="tooltip" data-placement="top"-->
-        <!--                 style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        {% elif lvl == 1 %}-->
-        <!--        <div class="progress">-->
-        <!--            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"-->
-        <!--                 title="Слабый пароль" data-toggle="tooltip" data-placement="top"-->
-        <!--                 style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        {% elif lvl == 2 %}-->
-        <!--        <div class="progress">-->
-        <!--            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"-->
-        <!--                 title="Хороший пароль" data-toggle="tooltip" data-placement="top"-->
-        <!--                 style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        {% elif lvl == 3 %}-->
-        <!--        <div class="progress">-->
-        <!--            <div class="progress-bar progress-bar-striped bg-success" role="progressbar"-->
-        <!--                 title="Надёжный пароль" data-toggle="tooltip" data-placement="top"-->
-        <!--                 style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        {% endif %}-->
-        <!--    </div>-->
         <input type="checkbox" onclick="myFunction()">Показать пароль
         <script>
             function myFunction() {
@@ -121,6 +59,7 @@
 
         </script>
         {% for error in form.password.errors %}
+    </p>
     <p class="alert alert-danger" role="alert">
         {{ error }}
     </p>
@@ -135,9 +74,11 @@
     </p>
     {% endfor %}
     </p>
-
+    <p>{{ form.rules_agree() }} Я согласен с <a href="/rules" target="_blank">Правилами Ресурса</a></p>
     <p>{{ form.submit(type="submit", class="btn btn-danger") }}</p>
-    <h5>{{message}}</h5>
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
 
 
 </form>

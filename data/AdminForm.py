@@ -4,5 +4,5 @@ from wtforms.validators import DataRequired
 
 
 class AdminForm(FlaskForm):
-    id = StringField('Кого забанить', validators=[DataRequired()])
+    id = StringField('', validators=[DataRequired()])
     submit = SubmitField('Бан')

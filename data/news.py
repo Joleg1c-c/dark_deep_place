@@ -12,7 +12,7 @@ class News(SqlAlchemyBase):
                            primary_key=True, autoincrement=True)
     category = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    cost = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    cost = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     Dict_Month = {1: "Января", 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня",

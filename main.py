@@ -15,9 +15,9 @@ import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import datetime
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 from os import path
-from PIL import Image
+from PIL import Image, ImageFile
 
 chars = 'abcdefghijklmnopqrstuvwxyz1234567890'
 spisok_obyazatelnih_symvolov = '(.,:;?!*+%-@[]{}/_$#)'
@@ -610,6 +610,90 @@ def generator():
     return password
 
 
+def cost_transform(cost):
+    newcost, marker = [], 0
+    for i in str(cost)[::-1]:
+        if marker == 3:
+            marker = 1
+            newcost.reverse()
+            newcost.append(" ")
+            newcost.append(i)
+            newcost.reverse()
+        else:
+            marker += 1
+            newcost.reverse()
+            newcost.append(i)
+            newcost.reverse()
+    return "".join(newcost)
+
+
+def category_transform(cat):
+    s = {111: "Игровые приставки/Видеоигры/PS4",
+         112: "Игровые приставки/Видеоигры/PS3",
+         113: "Игровые приставки/Видеоигры/Xbox One",
+         114: "Игровые приставки/Видеоигры/Xbox 360",
+         115: "Игровые приставки/Видеоигры/Nintendo Switch",
+         116: "Игровые приставки/Видеоигры/Прочее",
+         121: "Игровые приставки/Игровые приставки/PS4",
+         122: "Игровые приставки/Игровые приставки/PS3",
+         123: "Игровые приставки/Игровые приставки/Xbox One",
+         124: "Игровые приставки/Игровые приставки/Xbox 360",
+         125: "Игровые приставки/Игровые приставки/Nintendo Switch",
+         126: "Игровые приставки/Игровые приставки/Ретро",
+         127: "Игровые приставки/Игровые приставки/Другие",
+         131: "Игровые приставки/Геймпады и контроллеры/PlayStation",
+         132: "Игровые приставки/Геймпады и контроллеры/Xbox",
+         133: "Игровые приставки/Геймпады и контроллеры/Другие приставки",
+         141: "Игровые приставки/Аксессуары и прочее/Чехлы, кейсы, наклейки",
+         142: "Игровые приставки/Аксессуары и прочее/Зарядные устройства и аккумуляторы",
+         143: "Игровые приставки/Аксессуары и прочее/Прочее",
+         211: "ПК/Видеоигры/Диски",
+         212: "ПК/Видеоигры/Цифровые издания",
+         213: "ПК/Видеоигры/Дополнения",
+         221: "ПК/Комплектующие ПК/Видеокарты",
+         222: "ПК/Комплектующие ПК/Процессоры",
+         223: "ПК/Комплектующие ПК/Жёсткие диски",
+         224: "ПК/Комплектующие ПК/Блоки питания",
+         225: "ПК/Комплектующие ПК/Оперативная память",
+         226: "ПК/Комплектующие ПК/Материнские платы",
+         227: "ПК/Комплектующие ПК/Мониторы",
+         228: "ПК/Комплектующие ПК/Прочее",
+         231: "ПК/Игровые гарнитуры/Клавиатуры",
+         232: "ПК/Игровые гарнитуры/Мыши",
+         233: "ПК/Игровые гарнитуры/Наушники",
+         234: "ПК/Игровые гарнитуры/Флэш-накопители",
+         235: "ПК/Игровые гарнитуры/Прочее",
+         311: "Цифровая электроника/Смартфоны и планшеты/Apple",
+         312: "Цифровая электроника/Смартфоны и планшеты/Samsung",
+         313: "Цифровая электроника/Смартфоны и планшеты/Huawei",
+         314: "Цифровая электроника/Смартфоны и планшеты/Xiaomi",
+         315: "Цифровая электроника/Смартфоны и планшеты/Meizu",
+         316: "Цифровая электроника/Смартфоны и планшеты/Honor",
+         317: "Цифровая электроника/Смартфоны и планшеты/Прочие марки",
+         318: "Цифровая электроника/Смартфоны и планшеты/Аксессуары",
+         321: "Цифровая электроника/Бытовая электроника/Телевизоры",
+         322: "Цифровая электроника/Бытовая электроника/Принтеры и МФУ",
+         323: "Цифровая электроника/Бытовая электроника/Техника для кухни",
+         324: "Цифровая электроника/Бытовая электроника/Техника для дома",
+         331: 'Цифровая электроника/"Умный дом"/Колонки',
+         332: 'Цифровая электроника/"Умный дом"/Весы',
+         333: 'Цифровая электроника/"Умный дом"/Датчики и пульты',
+         334: 'Цифровая электроника/"Умный дом"/Лампы',
+         335: 'Цифровая электроника/"Умный дом"/Прочее',
+         340: 'Цифровая электроника/Прочее',
+         411: "Сувениры и атрибутика/Фигурки и предметы/Коллекционные фигурки",
+         412: "Сувениры и атрибутика/Фигурки и предметы/Жетоны, значки, наклейки",
+         413: "Сувениры и атрибутика/Фигурки и предметы/Кружки, магниты",
+         414: "Сувениры и атрибутика/Фигурки и предметы/Прочее",
+         421: "Сувениры и атрибутика/Текстовая атрибутика/Книги и комиксы",
+         422: "Сувениры и атрибутика/Текстовая атрибутика/Артбуки, постеры",
+         423: "Сувениры и атрибутика/Текстовая атрибутика/Блокноты",
+         431: "Сувениры и атрибутика/Цифровая атрибутика/Предметы для игр",
+         432: "Сувениры и атрибутика/Цифровая атрибутика/Музыка и фильмы",
+         433: "Сувениры и атрибутика/Цифровая атрибутика/ПО и подписки"}
+    return s[cat]
+
+
 @app.errorhandler(400)
 def page_not_found(e):
     return render_template('error.html', title="GAMEPYED - OOPS", err=400), 400
@@ -618,6 +702,7 @@ def page_not_found(e):
 @app.errorhandler(401)
 def page_not_found(e):
     return render_template('error.html', title="GAMEPYED - OOPS", err=401), 401
+
 
 @app.errorhandler(403)
 def page_not_found(e):
@@ -664,8 +749,15 @@ def main_page():
     return render_template('main_page.html', title="GAMEPYED")
 
 
-@app.route("/goods")
+@app.route("/rules/")
+def rules():
+    return render_template('rules.html', title="GAMEPYED - ПРАВИЛА РЕСУРСА")
+
+
+@app.route("/goods/")
 def goods():
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     session = db_session.create_session()
     news = session.query(News).filter(News.is_private != True)
     if current_user.is_authenticated:
@@ -676,38 +768,49 @@ def goods():
     return render_template("index.html", title="GAMEPYED - ОБЪЯВЛЕНИЯ", news=news)
 
 
-@app.route("/premium")
-def premium():
-    return render_template('premium.html', title="GAMEPYED - PREMIUM")
+# @app.route("/premium/")
+# def premium():
+#     if current_user.is_authenticated and current_user.status == "B":
+#         return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
+#     return render_template('premium.html', title="GAMEPYED - PREMIUM")
 
 
-@app.route("/about")
+@app.route("/about/")
 def about():
     return render_template('about.html', title="GAMEPYED - О ПРОЕКТЕ")
 
 
-@app.route("/faq")
-def faq():
-    return render_template('faq.html', title="GAMEPYED - FAQ")
+# @app.route("/faq/")
+# def faq():
+#     return render_template('faq.html', title="GAMEPYED - FAQ")
 
 
-@app.route('/post', methods=['GET', 'POST'])
+@app.route('/post/', methods=['GET', 'POST'])
 @login_required
 def add_category():
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     return render_template('new_post.html', title='GAMEPYED - ВЫБОР КАТЕГОРИИ',
                            whattodo='c')
 
 
-@app.route('/post/<int:whattodo>', methods=['GET', 'POST'])
+@app.route('/post/<int:whattodo>/', methods=['GET', 'POST'])
 @login_required
 def add_post(whattodo):
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     form = NewsForm()
     if form.validate_on_submit():
+        if type(form.cost.data).__name__ != "int":
+            return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
+                                   form=form, whattodo=whattodo, message="Неверная цена")
+        newcost = cost_transform(form.cost.data)
         session = db_session.create_session()
         news = News()
         news.title = form.title.data
-        news.cost = form.cost.data
-        news.category = whattodo  # функция переопределения категории
+        # news.cost = form.cost.data
+        news.cost = newcost
+        news.category = category_transform(whattodo)
         news.content = form.content.data
         news.is_private = form.is_private.data
         current_user.news.append(news)
@@ -718,18 +821,12 @@ def add_post(whattodo):
                            form=form, whattodo=whattodo)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register/', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect('/')
+        return redirect('/user')
     form = RegisterForm()
     if form.validate_on_submit():
-
-        # filename = secure_filename(f.filename)
-        # f.save(path.join(
-        #     app.instance_path, 'photos', filename
-        # ))
-
         passw = form.password.data
         usname = form.name.data
         List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
@@ -758,6 +855,10 @@ def register():
             return render_template('register.html', title='GAMEPYED - РЕГИСТРАЦИЯ',
                                    form=form,
                                    message="Адрес электронной почты уже зарегистрирован")
+        if not form.rules_agree.data:
+            return render_template('register.html', title='GAMEPYED - РЕГИСТРАЦИЯ',
+                                   form=form,
+                                   message="Вы обязаны согласиться с Правилами Ресурса")
 
         while True:
             some = generator()
@@ -795,6 +896,23 @@ def register():
                 return render_template('register.html', title='GAMEPYED - РЕГИСТРАЦИЯ', form=form,
                                        message="Ошибка при загрузке аватарки")
             else:
+                ImageFile.MAXBLOCK = 2 ** 20
+                img = Image.open(path.join("static", "img", "users", "avatar", f"{user.id}.jpg"))
+                width, height = img.size
+                if width > height:
+                    newwidth = width - height
+                    if newwidth % 2 != 0:
+                        newwidth -= 1
+                    img = img.crop(((newwidth / 2), 0, (newwidth / 2) + height, height))
+                elif height > width:
+                    newheight = height - width
+                    if newheight % 2 != 0:
+                        newheight -= 1
+                    img = img.crop((0, (newheight / 2), width, (newheight / 2) + width))
+                if img.mode in ("RGBA", "P"):
+                    img = img.convert("RGB")
+                img.save(path.join("static", "img", "users", "avatar", f"{user.id}.jpg"), "JPEG",
+                         quality=80, optimize=True, progressive=True)
                 user.img = True
         session.commit()
 
@@ -803,10 +921,10 @@ def register():
     return render_template('register.html', title='GAMEPYED - РЕГИСТРАЦИЯ', form=form)
 
 
-@app.route('/accept/<int:id>', methods=['GET', 'POST'])
+@app.route('/accept/<int:id>/', methods=['GET', 'POST'])
 def accept(id):
     if current_user.is_authenticated:
-        return redirect('/')
+        return redirect('/user')
     session = db_session.create_session()
     user = session.query(User).filter(User.id == id).first()
     if user.is_activate:
@@ -829,13 +947,15 @@ def accept(id):
                 return render_template('accept.html', form=form,
                                        title="GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК",
                                        message="Неверный код. Попробуйте ещё раз.", userimg=False)
-    # if user.img:
-    #     return render_template('accepted.html', title='GAMEPYED - ВАШ ПОЧТОВЫЙ ЯЩИК ПОДТВЕРЖДЁН', userimg=user.id)
-    # else:
-    return render_template('accept.html', title='GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК', form=form)
+    if user.img:
+        return render_template('accept.html', form=form,
+                               title="GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК", userimg=user.id)
+    else:
+        return render_template('accept.html', form=form,
+                               title="GAMEPYED - ПОДТВЕРДИТЕ ВАШ ПОЧТОВЫЙ ЯЩИК", userimg=False)
 
 
-@app.route('/checkemail/key=<string:code>')
+@app.route('/checkemail/key=<string:code>/')
 def checkemail(code):
     if current_user.is_authenticated:
         return redirect('/')
@@ -850,67 +970,130 @@ def checkemail(code):
         return redirect(f'/accept/{user.id}')
 
 
-@app.route('/user')
+@app.route('/user/')
 @login_required
 def user():
-    # session = db_session.create_session()
+    if current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
+    session = db_session.create_session()
     # user = session.query(User).filter(User.id == id).first()
-    return render_template('user.html', title='GAMEPYED - МОЙ ПРОФИЛЬ')
-    # Если произведён вход, если id входившего равняется id ссылки и акк, на который заходится по ссылке
-    # подтверждён, то можно редактировать информацию. В противном случае можно только увидеть информацию.
+    goods_len = len(session.query(News).filter(News.user_id == current_user.id).all())
+    if goods_len > 0:
+        return render_template('user.html', title='GAMEPYED - МОЙ ПРОФИЛЬ', goods_len=goods_len)
+    return render_template('user.html', title='GAMEPYED - МОЙ ПРОФИЛЬ', goods_len=0)
 
 
-@app.route('/edit_user/<int:id>', methods=['GET', 'POST'])
+@app.route('/user/<int:id>/')
+@login_required
+def other_user(id):
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
+    session = db_session.create_session()
+    other_user = session.query(User).filter(User.id == id).first()
+    if not other_user:
+        abort(404)
+    goods_len = len(session.query(News).filter(News.user_id == id).all())
+    if goods_len > 0:
+        return render_template('other_user.html', title=f'GAMEPYED - {other_user.name}',
+                               other_user=other_user, goods_len=goods_len)
+    return render_template('other_user.html', title=f'GAMEPYED - {other_user.name}',
+                           other_user=other_user, goods_len=0)
+
+
+@app.route('/edit_user/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def edit_user(id):
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     if current_user.id == id:
         form = RedacuserForm()
-        if form.validate_on_submit() and form.submit:
+        # print(000000000)
+        if form.validate_on_submit():
             session = db_session.create_session()
-            # else:
-            #     return render_template('edit_user.html', title='Регистрация',
-            #                            form=form,
-            #                            message="",
-            #                            lvl=List_Psw_Lvl[1])
-
-            if session.query(User).filter(User.email == form.email.data, User.id != id).first():
-                return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
-                                       form=form,
-                                       message="Адрес электронной почты уже зарегистрирован")
             user = session.query(User).filter(User.id == id).first()
-            if user:
-                user.name = form.name.data
-                user.contacts = form.contacts.data
-                user.email = form.email.data
-                print(form.password.data)
+            # print(111111)
+            if user.check_password(form.old_password.data):
+                if form.old_password.data == form.password.data:
+                    return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
+                                           form=form,
+                                           message="Пароли совпадают")
                 if len(form.password.data) != 0:
-                    if not user.check_password(form.old_password.data):
-                        return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
-                                               form=form,
-                                               message="Введён неверный текущий пароль")
-                    if form.old_password.data == form.password.data:
-                        return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
-                                               form=form,
-                                               message="Пароли совпадают")
                     passw = form.password.data
-                    List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)]),
-                                    sum([digit(passw), registr(passw), must_symvols(passw)])]
+                    List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)])]
                     if List_Psw_Lvl[0] != 2:
                         return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
                                                form=form,
                                                message="Новый пароль не соответствует требованиям")
-                    # user.password = form.password.data
-                    user.set_password(form.password.data)
+                # print(22222222)
+                if session.query(User).filter(User.email == form.email.data, User.id != id).first():
+                    return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
+                                           form=form,
+                                           message="Адрес электронной почты уже зарегистрирован")
+                # print(33333333)
+                f = form.img.data
+                if f and f.filename.split('.')[-1] in ["png", "jpg", "jpeg"]:
+                    try:
+                        with open(f'static/img/users/avatar/{user.id}.jpg', 'wb') as file:
+                            file.write(f.read())
+                    except Exception:
+                        return render_template('edit_user.html',
+                                               title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ',
+                                               form=form,
+                                               message="Ошибка при загрузке аватарки")
+                    else:
+                        ImageFile.MAXBLOCK = 2 ** 20
+                        img = Image.open(path.join("static", "img", "users", "avatar", f"{user.id}.jpg"))
+                        width, height = img.size
+                        if width > height:
+                            newwidth = width - height
+                            if newwidth % 2 != 0:
+                                newwidth -= 1
+                            img = img.crop(((newwidth / 2), 0, (newwidth / 2) + height, height))
+                        elif height > width:
+                            newheight = height - width
+                            if newheight % 2 != 0:
+                                newheight -= 1
+                            img = img.crop((0, (newheight / 2), width, (newheight / 2) + width))
+                        if img.mode in ("RGBA", "P"):
+                            img = img.convert("RGB")
+                        img.save(path.join("static", "img", "users", "avatar", f"{user.id}.jpg"), "JPEG",
+                                 quality=80, optimize=True, progressive=True)
+                        user.img = True
+                if len(form.password.data) != 0:
+                    passw = form.password.data
+                    List_Psw_Lvl = [sum([len_passw(passw), bad_symvols(passw)])]
+                    if List_Psw_Lvl[0] == 2:
+                        user.set_password(form.password.data)
+                user.name = form.name.data
+                contacts = {}
+                # print(form.checkbox1.data, form.contact1.data)
+                if form.checkbox1.data and form.contact1.data:
+                    contacts["tl"] = form.contact1.data
+                if form.checkbox2.data and form.contact2.data:
+                    contacts["vk"] = form.contact2.data
+                if form.checkbox3.data and form.contact3.data:
+                    contacts["tg"] = form.contact3.data
+                if form.checkbox4.data and form.contact4.data:
+                    contacts["it"] = form.contact4.data
+                if form.checkbox5.data and form.contact5.data:
+                    contacts["fb"] = form.contact5.data
+                if form.checkbox6.data and form.contact6.data:
+                    contacts["ok"] = form.contact6.data
+                user.contacts = contacts
+                user.email = form.email.data
+                # print(form.password.data)
                 session.commit()
                 return redirect('/user')
-            else:
-                abort(404)
+            return render_template('edit_user.html',
+                                   message="Неверный пароль",
+                                   title="GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ",
+                                   form=form)
         return render_template('edit_user.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ПРОФИЛЯ', form=form)
     else:
         abort(404)
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route('/admin/', methods=['GET', 'POST'])
 @login_required
 def admin():
     if current_user.status == "A":
@@ -918,23 +1101,27 @@ def admin():
         session = db_session.create_session()
         users = session.query(User)
         if form.validate_on_submit() and form.id.data != "None":
-            print(12)
+            # print(12)
             try:
                 user = session.query(User).filter(User.id == int(form.id.data),
                                                   User.status != "A").first()
                 user.status = "B"
                 session.commit()
-                return render_template('admin.html', title='личная страница', users=users, form=form)
-            except Exception as error:
-                print(error)
-        return render_template('admin.html', title='личная страница', users=users, form=form)
+                return render_template('admin.html', title='GAMEPYED - АДМИНКА', users=users, form=form)
+            except Exception:
+                return render_template('admin.html', title='GAMEPYED - АДМИНКА', users=users,
+                                       form=form, message="Неверный ID")
+                # print(error)
+        return render_template('admin.html', title='GAMEPYED - АДМИНКА', users=users, form=form)
     else:
         abort(404)
 
 
-@app.route('/post/<int:id>', methods=['GET', 'POST'])
+@app.route('/edit_post/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def edit_post(id):
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     form = NewsForm()
     if request.method == "GET":
         session = db_session.create_session()
@@ -963,9 +1150,11 @@ def edit_post(id):
     return render_template('new_post.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ОБЪЯВЛЕНИЯ', form=form)
 
 
-@app.route('/post_delete/<int:id>', methods=['GET', 'POST'])
+@app.route('/post_delete/<int:id>/', methods=['GET', 'POST'])
 @login_required
 def post_delete(id):
+    if current_user.is_authenticated and current_user.status == "B":
+        return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     session = db_session.create_session()
     news = session.query(News).filter(News.id == id,
                                       News.user == current_user).first()
@@ -977,15 +1166,17 @@ def post_delete(id):
     return redirect('/goods')
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect('/')
+        return redirect('/user')
     form = LoginForm()
     if form.validate_on_submit():
         session = db_session.create_session()
         user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
+            if user.status == "B":
+                return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
             if user.is_activate:
                 login_user(user, remember=form.remember_me.data)
                 return redirect('/')
@@ -997,7 +1188,7 @@ def login():
     return render_template('login.html', title='GAMEPYED - АВТОРИЗАЦИЯ', form=form)
 
 
-@app.route('/logout')
+@app.route('/logout/')
 @login_required
 def logout():
     logout_user()

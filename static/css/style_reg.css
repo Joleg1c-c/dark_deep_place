@@ -1,6 +1,6 @@
 .container {
 width: 500px;
-height: 660px;
+height: auto;
 background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);
 margin: 50px auto 0px auto;
 text-align: center;
@@ -21,3 +21,8 @@ margin: 10px auto 0 auto;
 }
 
 .progress { width: 410px; margin: 50px auto 0px auto; }
+
+input[type="file"] {
+width: 150px;
+height: 150px;
+}

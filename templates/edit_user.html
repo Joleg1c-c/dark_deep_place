@@ -4,79 +4,285 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
 <link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
 <style>
-    .container {
-height: 900px;}
+    .mb-3 {margin-bottom: 0rem!important;}
 </style>
 {% if current_user.is_authenticated %}
-    <form action="" method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.name.label }}
-            {{ form.name(class="form-control", value=current_user.name, placeholder="ФИО или название организации",
+<form action="" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+
+    <div align="center" style="background-image: url(/static/img/user_reg.png);
+              width: 150px;
+              height: 150px;
+              border: 3px solid #fbef00;
+              border-radius: 50%;
+              margin: 0px auto 0px auto;">
+        {{ form.img(class="custom-file-input", title="Аватар может иметь расширение png, jpg или jpeg.
+        Рекомендуется выбирать изображение одинаковой ширины и высоты, в котором нет альфа-канала.",
+        data_toggle="tooltip", data_placement="bottom") }}
+    </div>
+
+    <p>
+        {{ form.name.label }}
+        {{ form.name(class="form-control", value=current_user.name, placeholder="ФИО или название организации",
         title="Имя может содержать буквы русского и латинского алфавитов
         (А-я, A–z), цифры (0–9) и пробел. Максимальная длина имени - 44 символа.",
         data_toggle="tooltip", data_placement="top") }}
-            {% for error in form.name.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}
-            {{ form.email(class="form-control", value=current_user.email, placeholder="Адрес электронной почты")}}
-            {% for error in form.email.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-<!--        <p>-->
-<!--            {{ form.contacts.label }}<br>-->
-<!--            {{ form.contacts(class="form-control", value=current_user.contacts)}}<br>-->
-<!--            {% for error in form.contacts.errors %}-->
-<!--                <div class="alert alert-danger" role="alert">-->
-<!--                    {{ error }}-->
-<!--                </div>-->
-<!--            {% endfor %}-->
-<!--        </p>-->
-        <div class="input-group mb-3">
-    <div class=".col-3">
-    <select class="custom-select" id="inputGroupSelect" style="
-height: 40px;
-font-size: 16px;
-margin: 30px auto 0px auto;">
-        <option value="1">Тел</option>
-        <option value="2">VK</option>
-        <option value="3">TG</option>
-        <option value="4">Inst</option>
-        <option value="5">FB</option>
-        <option value="6">OK</option>
-    </select>
+        {% for error in form.name.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
-    <input type="text" class="form-control" placeholder="Ссылка/никнейм">
-    <div class="input-group-append" id="inputGroupButton">
-        <button class="btn btn-outline-success" type="button" style="text-align: center;
-height: 40px;
-font-size: 18px;
-margin: 30px auto 0px auto;
-"><i class="fas fa-plus"></i>
-        </button>
+    {% endfor %}
+    </p>
+    <p>
+        {{ form.email.label }}
+        {{ form.email(class="form-control", value=current_user.email, placeholder="Адрес электронной почты")}}
+        {% for error in form.email.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
-</div>
+    {% endfor %}
+    </p>
+    <!--        <p>-->
+    <!--            {{ form.contacts.label }}<br>-->
+    <!--            {{ form.contacts(class="form-control", value=current_user.contacts)}}<br>-->
+    <!--            {% for error in form.contacts.errors %}-->
+    <!--                <div class="alert alert-danger" role="alert">-->
+    <!--                    {{ error }}-->
+    <!--                </div>-->
+    <!--            {% endfor %}-->
+    <!--        </p>-->
 
-         <p>
-            {{ form.old_password.label }}
-            {{ form.old_password(class="form-control", id="old_myInput", value=current_user.old_password,
-             placeholder="Текущий пароль")}}
-            {% for error in form.old_password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
+    <!--        <div class="input-group mb-3">-->
+    <!--    <div class=".col-3">-->
+    <!--    <select class="custom-select" id="inputGroupSelect" style="-->
+    <!--height: 40px;-->
+    <!--font-size: 16px;-->
+    <!--margin: 30px auto 0px auto;">-->
+    <!--        <option value="1">Тел</option>-->
+    <!--        <option value="2">VK</option>-->
+    <!--        <option value="3">TG</option>-->
+    <!--        <option value="4">Inst</option>-->
+    <!--        <option value="5">FB</option>-->
+    <!--        <option value="6">OK</option>-->
+    <!--    </select>-->
+    <!--    </div>-->
+    <!--    <input type="text" class="form-control" placeholder="Ссылка/никнейм">-->
+    <!--    <div class="input-group-append" id="inputGroupButton">-->
+    <!--        <button class="btn btn-outline-success" type="button" style="text-align: center;-->
+    <!--height: 40px;-->
+    <!--font-size: 18px;-->
+    <!--margin: 30px auto 0px auto;-->
+    <!--"><i class="fas fa-plus"></i>-->
+    <!--        </button>-->
+    <!--    </div>-->
+    <!--</div>-->
 
-        <input type="checkbox" onclick="old_myFunction()">Показать пороль
-        <script>
+
+    {% if current_user.contacts["tl"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox1(checked=True, id="checkbox1") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon1" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fas fa-mobile-alt" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact1(class="form-control", type="text", id="contact1",
+        placeholder="Номер телефона", value=current_user.contacts["tl"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox1(id="checkbox1") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon1" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fas fa-mobile-alt" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact1(class="form-control", type="text", id="contact1",
+        placeholder="Номер телефона") }}
+    </div>
+    {% endif %}
+
+    {% if current_user.contacts["vk"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox2(checked=True, id="checkbox2") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon2" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-vk" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact2(class="form-control", type="text", id="contact2",
+        placeholder="Ссылка на профиль", value=current_user.contacts["vk"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox2(id="checkbox2") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon2" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-vk" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact2(class="form-control", type="text", id="contact2",
+        placeholder="Ссылка на профиль") }}
+    </div>
+    {% endif %}
+
+    {% if current_user.contacts["tg"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox3(checked=True, id="checkbox3") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon3" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-telegram-plane" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact3(class="form-control", type="text", id="contact3",
+        placeholder="Никнейм", value=current_user.contacts["tg"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox3(id="checkbox3") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon3" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-telegram-plane" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact3(class="form-control", type="text", id="contact3",
+        placeholder="Никнейм") }}
+    </div>
+    {% endif %}
+
+    {% if current_user.contacts["it"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox4(checked=True, id="checkbox4") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon4" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-instagram" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact4(class="form-control", type="text", id="contact4",
+        placeholder="Никнейм", value=current_user.contacts["it"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox4(id="checkbox4") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon4" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-instagram" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact4(class="form-control", type="text", id="contact4",
+        placeholder="Никнейм") }}
+    </div>
+    {% endif %}
+
+    {% if current_user.contacts["fb"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox5(checked=True, id="checkbox5") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon5" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-facebook" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact5(class="form-control", type="text", id="contact5",
+        placeholder="Ссылка на профиль", value=current_user.contacts["fb"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox5(id="checkbox5") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon5" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-facebook" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact5(class="form-control", type="text", id="contact5",
+        placeholder="Ссылка на профиль") }}
+    </div>
+    {% endif %}
+
+    {% if current_user.contacts["ok"] %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox6(checked=True, id="checkbox6") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon6" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-odnoklassniki" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact6(class="form-control", type="text", id="contact6",
+        placeholder="Ссылка на профиль", value=current_user.contacts["ok"]) }}
+    </div>
+    {% else %}
+    <div class="input-group mb-3">
+        <div class="input-group-prepend" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;">
+            <div class="input-group-text">
+                {{ form.checkbox6(id="checkbox6") }}
+            </div>
+        </div>
+        <div class="input-group-prepend">
+    <span class="input-group-text" id="icon6" style="height: 40px; text-align: center;
+                  margin: 30px auto 0px auto;"><i class="fab fa-odnoklassniki" style="color: #007bff;"></i></span>
+        </div>
+        {{ form.contact6(class="form-control", type="text", id="contact6",
+        placeholder="Ссылка на профиль") }}
+    </div>
+    {% endif %}
+
+    <p>
+        {{ form.old_password.label }}
+        {{ form.old_password(class="form-control", id="old_myInput",
+        placeholder="Текущий пароль")}}
+        {% for error in form.old_password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+
+    <input type="checkbox" onclick="old_myFunction()">Показать пороль
+    <script>
             function old_myFunction() {
                 var x = document.getElementById("old_myInput");
                 if (x.type === "password") {
@@ -85,23 +291,26 @@ margin: 30px auto 0px auto;
                     x.type = "password";
                 }
             }
-        </script>
-        </p>
-        <p>
-            {{ form.password.label }}
-            {{ form.password(class="form-control", id="myInput", value=current_user.password,
-            placeholder="Новый пароль", title="Пароль может содержать буквы латинского алфавита
+
+
+
+    </script>
+    </p>
+    <p>
+        {{ form.password.label }}
+        {{ form.password(class="form-control", id="myInput",
+        placeholder="Новый пароль", title="Пароль может содержать буквы латинского алфавита
         (A–z), цифры (0–9) и специальные символы ( . , : ; ? ! * + % - @ ( ) [ ] { } / _ $ # ).
         Минимальная длина пароля - 8 символов, максимальная - 24 символа.",
         data_toggle="tooltip", data_placement="top")}}
-            {% for error in form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
+        {% for error in form.password.errors %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
 
-        <input type="checkbox" onclick="myFunction()">Показать пороль
-        <script>
+    <input type="checkbox" onclick="myFunction()">Показать пороль
+    <script>
             function myFunction() {
                 var x = document.getElementById("myInput");
                 if (x.type === "password") {
@@ -110,11 +319,15 @@ margin: 30px auto 0px auto;
                     x.type = "password";
                 }
             }
-        </script>
-        </p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        {{message}}
-    </form>
- {% endif %}
+
+
+    </script>
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
+</form>
+{% endif %}
 
 {% endblock %}

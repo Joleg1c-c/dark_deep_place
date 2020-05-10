@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .card-body { padding: 0.5rem; }
+    .btn btn-link collapsed { color: #fbef00; }
+    .breadcrumb { margin-bottom: 20px; margin-top: 20px; }
+</style>
 <link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
 <link rel="stylesheet" type="text/css" href="/static/css/style_reg.css">
-<link rel="stylesheet" type="text/css" href="/static/css/style_new_post.css">
-
 {% if whattodo == "c" %}
-    <div class="accordion" id="accordion">
+    <div class="accordion" id="accordion" style="margin-bottom: 40px; margin-top: 40px;">
         <div class="card">
             <div class="card-header" id="heading1">
                 <h2 class="mb-0">
@@ -17,7 +20,7 @@
                 </h2>
             </div>
             <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
                     <div class="accordion" id="accordion11">
                         <div class="card">
                             <div class="card-header" id="heading11">
@@ -111,7 +114,7 @@
                 </h2>
             </div>
             <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
                     <div class="accordion" id="accordion21">
                         <div class="card">
                             <div class="card-header" id="heading21">
@@ -126,7 +129,7 @@
                             <div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#accordion21">
                                 <div class="card-body">
                                     <a href="/post/211">Диски</a><br>
-                                    <a href="/post/212">Ключи и гифты</a><br>
+                                    <a href="/post/212">Цифровые издания</a><br>
                                     <a href="/post/213">Дополнения</a><br>
                                 </div>
                             </div>
@@ -146,7 +149,7 @@
                                     <a href="/post/221">Видеокарты</a><br>
                                     <a href="/post/222">Процессоры</a><br>
                                     <a href="/post/223">Жёсткие диски</a><br>
-                                    <a href="/post/224">Блоки питыния</a><br>
+                                    <a href="/post/224">Блоки питания</a><br>
                                     <a href="/post/225">Оперативная память</a><br>
                                     <a href="/post/226">Материнские платы</a><br>
                                     <a href="/post/227">Мониторы</a><br>
@@ -189,7 +192,7 @@
                 </h2>
             </div>
             <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
                     <div class="accordion" id="accordion31">
                         <div class="card">
                             <div class="card-header" id="heading31">
@@ -250,7 +253,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/post/340">Прочее</a><br>
+                        <a href="/post/340" style="background: #fff;">Прочее</a><br>
                         <!--<div class="card">-->
                             <!--<div class="card-header" id="heading34">-->
                                 <!--<h2 class="mb-0">-->
@@ -281,7 +284,7 @@
                 </h2>
             </div>
             <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
-                <div class="card-body">
+                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
                     <div class="accordion" id="accordion41">
                         <div class="card">
                             <div class="card-header" id="heading41">
@@ -344,7 +347,6 @@
 <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
-
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             {% if whattodo == 111 %}
@@ -430,7 +432,7 @@
             {% elif whattodo == 212 %}
                 <li class="breadcrumb-item active">ПК</li>
                 <li class="breadcrumb-item active">Видеоигры</li>
-                <li class="breadcrumb-item active">Ключи и гифты</li>
+                <li class="breadcrumb-item active">Цифровые издания</li>
             {% elif whattodo == 213 %}
                 <li class="breadcrumb-item active">ПК</li>
                 <li class="breadcrumb-item active">Видеоигры</li>
@@ -450,7 +452,7 @@
             {% elif whattodo == 224 %}
                 <li class="breadcrumb-item active">ПК</li>
                 <li class="breadcrumb-item active">Комплектующие ПК</li>
-                <li class="breadcrumb-item active">Блоки питыния</li>
+                <li class="breadcrumb-item active">Блоки питания</li>
             {% elif whattodo == 225 %}
                 <li class="breadcrumb-item active">ПК</li>
                 <li class="breadcrumb-item active">Комплектующие ПК</li>
@@ -604,7 +606,7 @@
     <a href="/post">Изменить категорию</a>
     <p>
         {{ form.title.label }}
-        {{ form.title (class="form-control", placeholder="Название") }}
+        {{ form.title(class="form-control", placeholder="Название") }}
         {% for error in form.title.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -627,16 +629,21 @@
     </p>
     <p>
         {{ form.content.label }}
-        {{ form.content(class="form-control", placeholder="Описание", style="min-height: 185px; max-height: 185px;", maxlength="800") }}
+        {{ form.content(class="form-control", placeholder="Описание",
+        style="min-height: 185px; max-height: 185px; width: 410px;
+        margin-right: auto; margin-left: auto;", maxlength="800", title="Максимум 800 символов.",
+        data_toggle="tooltip", data_placement="top") }}
         {% for error in form.content.errors %}
             <p content="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}
     </p>
-    <!--<p>{{ form.is_private() }} {{ form.is_private.label }}</p>-->
+<!--    <p>{{ form.is_private() }} {{ form.is_private.label }}</p>-->
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
 </form>
 {% endif %}
 {% endblock %}

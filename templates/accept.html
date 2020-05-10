@@ -4,10 +4,11 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
 <link rel="stylesheet" type="text/css" href="/static/css/style_accept.css">
 <form action="" method="post">
-    {% if userimg %}
+{% if userimg %}
     <img src="/static/img/users/avatar/{{ userimg }}.jpg" width="150" height="150">
 {% else %}
-<img src="/static/img/user.png">
+    {{ userimg }}
+    <img src="/static/img/user.png">
 {% endif %}
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
@@ -15,7 +16,7 @@
         регистрации. Следуй указаниям в нём. Если письмо не пришло в течение 15 минут, проверь папку «Спам».</h6>
     <p>
         {{ form.check.label }}
-        {{ form.check(class="form-control") }}
+        {{ form.check(class="form-control", placeholder="Индивидуальный код") }}
         {% for error in form.check.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
@@ -24,6 +25,8 @@
 
     </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    <h5>{{message}}</h5>
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
 </form>
 {% endblock %}

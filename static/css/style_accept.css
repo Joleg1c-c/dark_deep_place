@@ -5,7 +5,7 @@ A:visited:active { color: #dc3545; }
 
 .container {
 width: 500px;
-height: 530px;
+height: auto;
 background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);
 margin: 50px auto 0 auto;
 text-align: center;
@@ -23,3 +23,4 @@ margin: 5px auto 0 auto;
 
 h5 { margin: 15px auto 0 auto; }
 .tohomepage { align: 50px auto 0 auto; }
+.tologin { align: 50px auto 0 auto; }

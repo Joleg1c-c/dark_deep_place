@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
 <link rel="stylesheet" type="text/css" href="/static/css/style_log.css">
 <form action="" method="post">
-    <img src="static/img/user.png">
+    <img src="/static/img/user.png">
     {{ form.hidden_tag() }}
     <p>
     <div class="input-group 1">
@@ -51,6 +51,8 @@
     </p>
     <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    <h5>{{ message }}</h5>
+    {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
 </form>
 {% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
+{% if other_user.img %}
+<img src="/static/img/users/avatar/{{other_user.id}}.jpg" width="150" height="150">
+{% else %}
+<img src="/static/img/user.png">
+{% endif %}
+{% if other_user.status == "B" %}
+<h1 style="text-decoration: line-through;">{{other_user.name}}</h1>
+{% else %}
+<h1>{{other_user.name}}</h1>
+{% endif %}
+{% if other_user.status == "N" %}
+<p style="color: #fff; font-size: 24px; margin-bottom: 2rem;">ПОЛЬЗОВАТЕЛЬ</p>
+{% elif other_user.status == "P" %}
+<div class="premiumrainbow"><p style="font-size: 24px; margin-bottom: 2rem;">ПРЕМИУМ</p></div>
+{% elif other_user.status == "A" %}
+<div class="rainbow-animated"><p style="color: #ffe484; margin-bottom: 2rem;">АДМИН</p></div>
+{% elif other_user.status == "B" %}
+<p style="color: #E30B5C; font-size: 24px; margin-bottom: 2rem;">ЗАБАНЕН</p>
+{% endif %}
+{% if current_user.status == "A" and other_user.status != "A" %}
+<p>Адрес электронной почты <h4 style="color: #fbef00;">{{current_user.email}}</h4></p>
+{% elif current_user.id == other_user.id %}
+<p>Адрес электронной почты <h4 style="color: #fbef00;">{{current_user.email}}</h4></p>
+{% endif %}
+
+<p>С нами с <h4 style="color: #fbef00;">{{other_user.created_date}}</h4></p>
+<p>Контакты</p>
+{% if other_user.contacts %}
+{% for key in other_user.contacts %}
+{% if key == "tl" %}
+<h4> <i class="fas fa-mobile-alt" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% elif key == "vk" %}
+<h4> <i class="fab fa-vk" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% elif key == "tg" %}
+<h4> <i class="fab fa-telegram-plane" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% elif key == "it" %}
+<h4> <i class="fab fa-instagram" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% elif key == "fb" %}
+<h4> <i class="fab fa-facebook" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% elif key == "ok" %}
+<h4> <i class="fab fa-odnoklassniki" style="color: #fff;"></i> {{ other_user.contacts[key] }}</h4>
+{% endif %}
+{% endfor %}
+{% else %}
+<h4>...</h4>
+{% endif %}
+
+{% if goods_len > 0 %}
+<p>
+    <a class="btn btn-warning" href="/">Объявления ({{goods_len}})</a>
+</p>
+{% else %}
+<p>
+    <a class="btn btn-warning" href="/">Объявления (0)</a>
+</p>
+{% endif %}
+
+{% endblock %}

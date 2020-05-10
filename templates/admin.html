@@ -3,10 +3,11 @@
 
 {% block content %}
 {% if current_user.status == "A" %}
-
-    <h1>Административная подноготная</h1>
-    <h2>вы есть {{current_user.name}}</h2>
-
+<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
+<style>
+.container { width: auto; height: auto; }
+</style>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         {% for guy in users%}
@@ -14,8 +15,8 @@
                 | {{guy.uuid}} | {{guy.created_data}}
         {% endfor %}
         <p>
-            {{ form.id.label }}<br>
-            {{ form.id(class="form-control", value="None") }}<br>
+            {{ form.id.label }}
+            {{ form.id(class="form-control", placeholder="ID наказуемого") }}
             {% for error in form.id.errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ error }}
@@ -23,9 +24,9 @@
             {% endfor %}
         </p>
         {{ form.id(type="image", src="\static\img\GG_50_KILL.jpg") }}
-
+        {% if message %}
+    <div class="alert alert-danger" role="alert">{{message}}</div>
+    {% endif %}
     </form>
-
 {% endif %}
-
 {% endblock %}
