@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<h3>{{ post.category }}</h3>
+<h2>{{ post.cost }}</h2>
+
+<h4>{{ post.content }}</h4>
+
+{% if post.user.contacts %}
+<h3>контакты: </h3>
+{% for key in post.user.contacts %}
+{% if key == "tl" %}
+<h4><i class="fas fa-mobile-alt" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% elif key == "vk" %}
+<h4><i class="fab fa-vk" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% elif key == "tg" %}
+<h4><i class="fab fa-telegram-plane" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% elif key == "it" %}
+<h4><i class="fab fa-instagram" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% elif key == "fb" %}
+<h4><i class="fab fa-facebook" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% elif key == "ok" %}
+<h4><i class="fab fa-odnoklassniki" style="color: #fff;"></i>: {{ current_user.contacts[key] }}</h4>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+<p class="card-text">от <a href="/user/{{ post.user.id}}">{{post.user.name}}</a></p>
+{% if post.user.img %}
+<img src="/static/img/users/avatar/{{ post.user.id }}.jpg" width="150" height="150">
+{% else %}
+<img src="/static/img/user.png">
+{% endif %}
+
+<p class="card-text"><small class="text-muted">{{post.created_date}}</small></p>
+{% endblock %}

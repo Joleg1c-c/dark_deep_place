@@ -32,6 +32,15 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+def number_page(post_len, number):
+    if post_len % number == 0:
+        return post_len // number
+    else:
+        return post_len // number + 1
+
+
+
+
 def len_passw(passw):
     if len(passw) < 8 or len(passw) > 24:
         return 0
@@ -754,18 +763,71 @@ def rules():
     return render_template('rules.html', title="GAMEPYED - ПРАВИЛА РЕСУРСА")
 
 
-@app.route("/goods/")
-def goods():
+@app.route("/goods/page<int:page>")
+@app.route("/goods/page<int:page>/cat<int:cat>")
+def goods(page, cat=False):
     if current_user.is_authenticated and current_user.status == "B":
         return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
+
+    if page < 1:
+        if cat:
+            return redirect('/goods/page1/cat{}'.format(cat))
+        return redirect('/goods/page1')
+
     session = db_session.create_session()
-    news = session.query(News).filter(News.is_private != True)
-    if current_user.is_authenticated:
-        news = session.query(News).filter(
-            (News.user == current_user) | (News.is_private != True))
+    number = 15
+
+    s = []
+
+    for p in session.query(News):
+        if p.user.status == "P":
+            if cat:
+                if p.category == cat:
+                    s.append(p)
+            else:
+                s.append(p)
+
+    post = []
+    if len(s) >= 3:
+        for i in range(3):
+            c = choice(s)
+            if c in post:
+                continue
+            else:
+                post.append(c)
     else:
-        news = session.query(News).filter(News.is_private != True)
-    return render_template("index.html", title="GAMEPYED - ОБЪЯВЛЕНИЯ", news=news)
+        post.extend(s)
+
+
+    for p in session.query(News):
+        if cat and p not in post and p.user.status != "B":
+            if p.category == cat:
+                post.append(p)
+        elif p not in post and p.user.status != "B":
+            post.append(p)
+
+    if cat:
+        try:
+            post.extend(session.query(News).filter(category_transform(cat) == News.category).all())
+            if not post:
+                return render_template("index.html", title="GAMEPYED - ОБЪЯВЛЕНИЯ", post=post, now_page=1)
+        except Exception:
+            return redirect('/goods/page1')
+    else:
+        post.extend(session.query(News).all())
+
+    post_len = len(post)
+    col_page = number_page(post_len, number)
+
+    if page > col_page:
+        if cat:
+            return redirect('/goods/page{}/cat{}'.format(col_page, cat))
+        return redirect('/goods/page{}'.format(col_page))
+
+    to = page * number
+    ot = to - number
+    return render_template("index.html", title="GAMEPYED - ОБЪЯВЛЕНИЯ СТРАНИЦА {}".format(page), post=post[ot:to],
+                           col_page=col_page, now_page=page, cat=cat)
 
 
 # @app.route("/premium/")
@@ -801,11 +863,15 @@ def add_post(whattodo):
         return render_template('banned.html', title="GAMEPYED - ВЫ ЗАБАНЕНЫ")
     form = NewsForm()
     if form.validate_on_submit():
-        if type(form.cost.data).__name__ != "int":
-            return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
-                                   form=form, whattodo=whattodo, message="Неверная цена")
+        # if type(form.cost.data).__name__ != "int":
+        #     return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
+        #                            form=form, whattodo=whattodo, message="Неверная цена")
         newcost = cost_transform(form.cost.data)
         session = db_session.create_session()
+        goods_len = len(session.query(News).filter(News.user_id == current_user.id).all())
+        if goods_len + 1 > 10 and current_user.status == "N":
+            return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
+                                   form=form, whattodo=whattodo, message="У вас слишком много записей")
         news = News()
         news.title = form.title.data
         # news.cost = form.cost.data
@@ -816,9 +882,17 @@ def add_post(whattodo):
         current_user.news.append(news)
         session.merge(current_user)
         session.commit()
-        return redirect('/goods')
+        return redirect('/goods/page1')
     return render_template('new_post.html', title='GAMEPYED - НОВОЕ ОБЪЯВЛЕНИЕ',
                            form=form, whattodo=whattodo)
+
+
+@app.route('/some_post/<int:id>/', methods=['GET', 'POST'])
+@login_required
+def post(id):
+    session = db_session.create_session()
+    post = session.query(News).filter(News.id == id).first()
+    return render_template('post.html', title='GAMEPYED - ОБЪЯВЛЕНИЕ {}'.format(post.title), post=post)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -1144,7 +1218,7 @@ def edit_post(id):
             news.content = form.content.data
             news.is_private = form.is_private.data
             session.commit()
-            return redirect('/goods')
+            return redirect('/goods/page1')
         else:
             abort(404)
     return render_template('new_post.html', title='GAMEPYED - РЕДАКТИРОВАНИЕ ОБЪЯВЛЕНИЯ', form=form)
@@ -1163,7 +1237,7 @@ def post_delete(id):
         session.commit()
     else:
         abort(404)
-    return redirect('/goods')
+    return redirect('/goods/page1')
 
 
 @app.route('/login/', methods=['GET', 'POST'])
