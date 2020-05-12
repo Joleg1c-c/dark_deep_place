@@ -1330,8 +1330,7 @@ def load_user(user_id):
 
 def main():
     db_session.global_init("db/barahol.sqlite")
-    # app.run()
-    app.run(host='https://gamepyed.herokuapp.com/')
+    app.run()
 
 
 if __name__ == '__main__':
