@@ -116,7 +116,7 @@ def mailing(cause, to, kod):
     if cause == "reg":
         text = f"""Привет!\nМы рады, что ты теперь с нами!
         Для начала использования нашего сервиса необходимо подтвердить свой аккаунт. Введи код:
-        {kod}\nна нашем сайте или перейди по ссылке:\nhttp://127.0.0.1:5000/checkemail/key={kod}\n
+        {kod}\nна нашем сайте или перейди по ссылке:\nhttp://http://gamepyed.herokuapp.com//checkemail/key={kod}\n
         Если у тебя есть какие-либо вопросы, просто ответь на это письмо - мы всегда рады помочь.\n
         С уважением,\nКоманда GAMEPYED"""
         html = '''<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -216,7 +216,7 @@ def mailing(cause, to, kod):
                                                                 <tr style="border-collapse:collapse;">
                                                                     <td class="es-m-txt-c" align="center"
                                                                         style="Margin:0;padding-left:10px;padding-right:10px;padding-top:25px;padding-bottom:25px;font-size:0px;">
-                                                                        <a href="https://127.0.0.1:5000" target="_blank"
+                                                                        <a href="https://http://gamepyed.herokuapp.com/" target="_blank"
                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'comic sans ms', 'marker felt-thin', arial, sans-serif;font-size:14px;text-decoration:underline;color:#111111;"><img
                                                                                 src="https://ifbvig.stripocdn.email/content/guids/CABINET_5127014f192531500fc499f30efa171c/images/11791588844619730.png"
                                                                                 alt
@@ -310,7 +310,7 @@ def mailing(cause, to, kod):
                                                                         style="Margin:0;padding-left:10px;padding-right:10px;padding-top:35px;padding-bottom:35px;">
                                                                         <span class="es-button-border"
                                                                               style="border-style:solid;border-color:#453163;background:#453163;border-width:1px;display:inline-block;border-radius:2px;width:auto;"><a
-                                                                                href="http://127.0.0.1:5000/checkemail/key=''' + kod + '''"
+                                                                                href="http://http://gamepyed.herokuapp.com//checkemail/key=''' + kod + '''"
                                                                                 class="es-button" target="_blank"
                                                                                 style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;font-size:20px;color:#FFFFFF;border-style:solid;border-color:#453163;border-width:15px 25px;display:inline-block;background:#453163;border-radius:2px;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center;">Подтвердить учётную запись</a></span>
                                                                     </td>
@@ -326,8 +326,8 @@ def mailing(cause, to, kod):
                                                                     <td class="es-m-txt-c" align="center"
                                                                         style="padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;">
                                                                         <a target="_blank"
-                                                                           href="http://127.0.0.1:5000/checkemail/key=''' + kod + '''"
-                                                                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'comic sans ms', 'marker felt-thin', arial, sans-serif;font-size:18px;text-decoration:underline;color:#453163;">http://127.0.0.1:5000/checkemail/key=''' + kod + '''</a>
+                                                                           href="http://http://gamepyed.herokuapp.com//checkemail/key=''' + kod + '''"
+                                                                           style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'comic sans ms', 'marker felt-thin', arial, sans-serif;font-size:18px;text-decoration:underline;color:#453163;">http://http://gamepyed.herokuapp.com//checkemail/key=''' + kod + '''</a>
                                                                     </td>
                                                                 </tr>
                                                                 <tr style="border-collapse:collapse;">
@@ -468,7 +468,7 @@ def mailing(cause, to, kod):
                                                                 <tr style="border-collapse:collapse;">
                                                                     <td class="es-m-txt-c" align="center"
                                                                         style="padding:0;Margin:0;font-size:0px;"><a
-                                                                            target="_blank" href="https://127.0.0.1:5000/"
+                                                                            target="_blank" href="https://http://gamepyed.herokuapp.com//"
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'comic sans ms', 'marker felt-thin', arial, sans-serif;font-size:18px;text-decoration:underline;color:#FFA73B;"><img
                                                                             src="https://ifbvig.stripocdn.email/content/guids/CABINET_5127014f192531500fc499f30efa171c/images/72111588843576311.png"
                                                                             alt
