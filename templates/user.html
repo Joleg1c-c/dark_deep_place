@@ -27,17 +27,17 @@
 {% if current_user.contacts %}
 {% for key in current_user.contacts %}
 {% if key == "tl" %}
-<h4> <i class="fas fa-mobile-alt" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fas fa-mobile-alt" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% elif key == "vk" %}
-<h4> <i class="fab fa-vk" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fab fa-vk" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% elif key == "tg" %}
-<h4> <i class="fab fa-telegram-plane" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fab fa-telegram-plane" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% elif key == "it" %}
-<h4> <i class="fab fa-instagram" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fab fa-instagram" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% elif key == "fb" %}
-<h4> <i class="fab fa-facebook" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fab fa-facebook" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% elif key == "ok" %}
-<h4> <i class="fab fa-odnoklassniki" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
+<h4><i class="fab fa-odnoklassniki" style="color: #fff;"></i> {{ current_user.contacts[key] }}</h4>
 {% endif %}
 {% endfor %}
 {% else %}
@@ -45,12 +45,10 @@
 {% endif %}
 
 {% if goods_len > 0 %}
-<p>
-    <a class="btn btn-warning" href="/">Мои объявления ({{goods_len}})</a>
+<p>Активных объявлений - {{goods_len}}
 </p>
 {% else %}
-<p>
-    <a class="btn btn-warning" href="/">Мои объявления (0)</a>
+<p>Нет активных объявлений
 </p>
 {% endif %}
 

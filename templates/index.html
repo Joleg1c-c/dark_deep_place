@@ -1,334 +1,130 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!--<link rel="stylesheet" type="text/css" href="/static/css/style_log_reg.css">-->
+<!--<link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">-->
+<style>
+h1 { color: #fff }
+h5 { color: #E30B5C; }
+h4 { color: #fbef00; margin-top: .9rem; margin-bottom: .9rem; }
+h6 { color: #fbef00; margin-top: .9rem; margin-bottom: .9rem; }
+
+.container {
+width: auto;
+height: auto;
+background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);
+margin: 50px auto 0px auto;
+text-align: center;
+border-radius: 1%;
+border: 4px solid #fbef00; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+text-align: center;
+width: 410px;
+height: 40px;
+font-size: 18px;
+margin: 30px auto 0px auto;
+}
+
+</style>
 <h1>Обьявления</h1>
-<div class="accordion" id="accordion" style="margin-bottom: 40px; margin-top: 40px;">
-        <div class="card">
-            <div class="card-header" id="heading1">
-                <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse1"
-                            aria-expanded="false" aria-controls="collapse1">
-                        Игровые приставки
-                    </button>
-                </h2>
-            </div>
-            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
-                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
-                    <div class="accordion" id="accordion11">
-                        <div class="card">
-                            <div class="card-header" id="heading11">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse11"
-                                            aria-expanded="false" aria-controls="collapse11">
-                                        Видеоигры
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordion11">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat111">PS4</a><br>
-                                    <a href="/goods/page{{now_page}}/cat112">PS3</a><br>
-                                    <a href="/goods/page{{now_page}}/cat113">Xbox One</a><br>
-                                    <a href="/goods/page{{now_page}}/cat114">Xbox 360</a><br>
-                                    <a href="/goods/page{{now_page}}/cat115">Nintendo Switch</a><br>
-                                    <a href="/goods/page{{now_page}}/cat116">Прочее</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading12">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse12"
-                                            aria-expanded="false" aria-controls="collapse12">
-                                        Игровые приставки
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordion11">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat121">PS4</a><br>
-                                    <a href="/goods/page{{now_page}}/cat122">PS3</a><br>
-                                    <a href="/goods/page{{now_page}}/cat123">Xbox One</a><br>
-                                    <a href="/goods/page{{now_page}}/cat124">Xbox 360</a><br>
-                                    <a href="/goods/page{{now_page}}/cat125">Nintendo Switch</a><br>
-                                    <a href="/goods/page{{now_page}}/cat126">Ретро</a><br>
-                                    <a href="/goods/page{{now_page}}/cat127">Прочее</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading13">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse13"
-                                            aria-expanded="false" aria-controls="collapse13">
-                                        Геймпады и контроллеры
-                                    </button>
-                                </h2>
-                            </div>
+{% if current_user.is_authenticated %}
+<a href="/post" class="btn btn-success">Новое объявление</a>
+{% endif %}
 
-                            <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordion11">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat131">PlayStation</a><br>
-                                    <a href="/goods/page{{now_page}}/cat132">Xbox</a><br>
-                                    <a href="/goods/page{{now_page}}/cat133">Другие приставки</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading14">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse14"
-                                            aria-expanded="false" aria-controls="collapse14">
-                                        Аксессуары и прочее
-                                    </button>
-                                </h2>
-                            </div>
 
-                            <div id="collapse14" class="collapse" aria-labelledby="heading14" data-parent="#accordion11">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat141">Чехлы, кейсы, наклейки</a><br>
-                                    <a href="/goods/page{{now_page}}/cat142">Зарядные устройства и аккумуляторы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat143">Прочее</a><br>
-                                </div>
+<div class="accordion" id="accordion" style="margin: 40px auto 40px auto; width: 500px;">
+    <div class="card">
+        <div class="card-header" id="heading1">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse1"
+                        aria-expanded="false" aria-controls="collapse1">
+                    Игровые приставки
+                </button>
+            </h2>
+        </div>
+        <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+            <div class="card-body"
+                 style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
+                <div class="accordion" id="accordion11">
+                    <div class="card">
+                        <div class="card-header" id="heading11">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse11"
+                                        aria-expanded="false" aria-controls="collapse11">
+                                    Видеоигры
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordion11">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat111">PS4</a><br>
+                                <a href="/goods/page{{now_page}}/cat112">PS3</a><br>
+                                <a href="/goods/page{{now_page}}/cat113">Xbox One</a><br>
+                                <a href="/goods/page{{now_page}}/cat114">Xbox 360</a><br>
+                                <a href="/goods/page{{now_page}}/cat115">Nintendo Switch</a><br>
+                                <a href="/goods/page{{now_page}}/cat116">Прочее</a><br>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" id="heading2">
-                <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2"
-                            aria-expanded="false" aria-controls="collapse2">
-                        ПК
-                    </button>
-                </h2>
-            </div>
-            <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
-                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
-                    <div class="accordion" id="accordion21">
-                        <div class="card">
-                            <div class="card-header" id="heading21">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse21"
-                                            aria-expanded="false" aria-controls="collapse21">
-                                        Видеоигры
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#accordion21">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat211">Диски</a><br>
-                                    <a href="/goods/page{{now_page}}/cat212">Цифровые издания</a><br>
-                                    <a href="/goods/page{{now_page}}/cat213">Дополнения</a><br>
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-header" id="heading12">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse12"
+                                        aria-expanded="false" aria-controls="collapse12">
+                                    Игровые приставки
+                                </button>
+                            </h2>
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="heading22">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse22"
-                                            aria-expanded="false" aria-controls="collapse22">
-                                        Комплектующие ПК
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapse22" class="collapse" aria-labelledby="heading22" data-parent="#accordion21">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat221">Видеокарты</a><br>
-                                    <a href="/goods/page{{now_page}}/cat222">Процессоры</a><br>
-                                    <a href="/goods/page{{now_page}}/cat223">Жёсткие диски</a><br>
-                                    <a href="/goods/page{{now_page}}/cat224">Блоки питания</a><br>
-                                    <a href="/goods/page{{now_page}}/cat225">Оперативная память</a><br>
-                                    <a href="/goods/page{{now_page}}/cat226">Материнские платы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat227">Мониторы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat228">Прочее</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading23">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse23"
-                                            aria-expanded="false" aria-controls="collapse23">
-                                        Игровые гарнитуры
-                                    </button>
-                                </h2>
-                            </div>
-
-                            <div id="collapse23" class="collapse" aria-labelledby="heading23" data-parent="#accordion21">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat231">Клавиатуры</a><br>
-                                    <a href="/goods/page{{now_page}}/cat232">Мыши</a><br>
-                                    <a href="/goods/page{{now_page}}/cat233">Наушники</a><br>
-                                    <a href="/goods/page{{now_page}}/cat234">Флэш-накопители</a><br>
-                                    <a href="/goods/page{{now_page}}/cat235">Прочее</a><br>
-                                </div>
+                        <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordion11">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat121">PS4</a><br>
+                                <a href="/goods/page{{now_page}}/cat122">PS3</a><br>
+                                <a href="/goods/page{{now_page}}/cat123">Xbox One</a><br>
+                                <a href="/goods/page{{now_page}}/cat124">Xbox 360</a><br>
+                                <a href="/goods/page{{now_page}}/cat125">Nintendo Switch</a><br>
+                                <a href="/goods/page{{now_page}}/cat126">Ретро</a><br>
+                                <a href="/goods/page{{now_page}}/cat127">Прочее</a><br>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="card">
+                        <div class="card-header" id="heading13">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse13"
+                                        aria-expanded="false" aria-controls="collapse13">
+                                    Геймпады и контроллеры
+                                </button>
+                            </h2>
+                        </div>
 
-        <div class="card">
-            <div class="card-header" id="heading3">
-                <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3"
-                            aria-expanded="false" aria-controls="collapse3">
-                        Цифровая электроника
-                    </button>
-                </h2>
-            </div>
-            <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
-                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
-                    <div class="accordion" id="accordion31">
-                        <div class="card">
-                            <div class="card-header" id="heading31">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse31"
-                                            aria-expanded="false" aria-controls="collapse31">
-                                        Смартфоны и планшеты
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse31" class="collapse" aria-labelledby="heading31" data-parent="#accordion31">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat311">Apple</a><br>
-                                    <a href="/goods/page{{now_page}}/cat312">Samsung</a><br>
-                                    <a href="/goods/page{{now_page}}/cat313">Huawei</a><br>
-                                    <a href="/goods/page{{now_page}}/cat314">Xiaomi</a><br>
-                                    <a href="/goods/page{{now_page}}/cat315">Meizu</a><br>
-                                    <a href="/goods/page{{now_page}}/cat316">Honor</a><br>
-                                    <a href="/goods/page{{now_page}}/cat317">Прочие марки</a><br>
-                                    <a href="/goods/page{{now_page}}/cat318">Аксессуары</a><br>
-                                </div>
+                        <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordion11">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat131">PlayStation</a><br>
+                                <a href="/goods/page{{now_page}}/cat132">Xbox</a><br>
+                                <a href="/goods/page{{now_page}}/cat133">Другие приставки</a><br>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header" id="heading32">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse32"
-                                            aria-expanded="false" aria-controls="collapse32">
-                                        Бытовая электроника
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse32" class="collapse" aria-labelledby="heading32" data-parent="#accordion31">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat321">Телевизоры</a><br>
-                                    <a href="/goods/page{{now_page}}/cat322">Принтеры и МФУ</a><br>
-                                    <a href="/goods/page{{now_page}}/cat323">Техника для кухни</a><br>
-                                    <a href="/goods/page{{now_page}}/cat324">Техника для дома</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading33">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse33"
-                                            aria-expanded="false" aria-controls="collapse33">
-                                        "Умный дом"
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse33" class="collapse" aria-labelledby="heading33" data-parent="#accordion31">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat331">Колонки</a><br>
-                                    <a href="/goods/page{{now_page}}/cat332">Весы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat333">Датчики и пульты</a><br>
-                                    <a href="/goods/page{{now_page}}/cat334">Лампы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat335">Прочее</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/goods/page{{now_page}}/cat340" style="background: #fff;">Прочее</a><br>
-                        <!--<div class="card">-->
-                            <!--<div class="card-header" id="heading34">-->
-                                <!--<h2 class="mb-0">-->
-                                    <!--<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse34"-->
-                                            <!--aria-expanded="false" aria-controls="collapse34">-->
-                                        <!--Прочее-->
-                                    <!--</button>-->
-                                <!--</h2>-->
-                            <!--</div>-->
-                            <!--<div id="collapse34" class="collapse" aria-labelledby="heading34" data-parent="#accordion31">-->
-                                <!--<div class="card-body">-->
-                                    <!--<a href="/post/341">Прочее</a><br>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="card">
+                        <div class="card-header" id="heading14">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse14"
+                                        aria-expanded="false" aria-controls="collapse14">
+                                    Аксессуары и прочее
+                                </button>
+                            </h2>
+                        </div>
 
-        <div class="card">
-            <div class="card-header" id="heading4">
-                <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4"
-                            aria-expanded="false" aria-controls="collapse4">
-                        Сувениры и атрибутика
-                    </button>
-                </h2>
-            </div>
-            <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
-                <div class="card-body" style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
-                    <div class="accordion" id="accordion41">
-                        <div class="card">
-                            <div class="card-header" id="heading41">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse41"
-                                            aria-expanded="false" aria-controls="collapse41">
-                                        Фигурки и предметы
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse41" class="collapse" aria-labelledby="heading41" data-parent="#accordion41">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat411">Коллекционные фигурки</a><br>
-                                    <a href="/goods/page{{now_page}}/cat412">Жетоны, значки, наклейки</a><br>
-                                    <a href="/goods/page{{now_page}}/cat413">Кружки, магниты</a><br>
-                                    <a href="/goods/page{{now_page}}/cat413">Прочее</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading42">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse42"
-                                            aria-expanded="false" aria-controls="collapse42">
-                                        Текстовая атрибутика
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse42" class="collapse" aria-labelledby="heading42" data-parent="#accordion41">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat421">Книги и комиксы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat422">Артбуки, постеры</a><br>
-                                    <a href="/goods/page{{now_page}}/cat423">Блокноты</a><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="heading43">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse43"
-                                            aria-expanded="false" aria-controls="collapse43">
-                                        Цифровая атрибутика
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapse43" class="collapse" aria-labelledby="heading43" data-parent="#accordion41">
-                                <div class="card-body">
-                                    <a href="/goods/page{{now_page}}/cat431">Предметы для игр</a><br>
-                                    <a href="/goods/page{{now_page}}/cat432">Музыка и фильмы</a><br>
-                                    <a href="/goods/page{{now_page}}/cat433">ПО и подписки</a><br>
-                                </div>
+                        <div id="collapse14" class="collapse" aria-labelledby="heading14" data-parent="#accordion11">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat141">Чехлы, кейсы, наклейки</a><br>
+                                <a href="/goods/page{{now_page}}/cat142">Зарядные устройства и аккумуляторы</a><br>
+                                <a href="/goods/page{{now_page}}/cat143">Прочее</a><br>
                             </div>
                         </div>
                     </div>
@@ -337,132 +133,381 @@
         </div>
     </div>
 
-{% if current_user.is_authenticated %}
-    <a href="/post" class="btn btn-secondary">Добавить объявление</a>
-{% endif %}
-{% if post %}
-{% for item in post%}
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row no-gutters">
-        <div class="col-md-4">
-            <img src="..." class="card-img" alt="">
+    <div class="card">
+        <div class="card-header" id="heading2">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2"
+                        aria-expanded="false" aria-controls="collapse2">
+                    ПК
+                </button>
+            </h2>
         </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h2><a href="/some_post/{{ item.id }}" class="card-title">{{ item.title }}</a></h2>
-                <div>
-                    {{item.cost}} ₽
-                </div>
-                <p class="card-text">от {{item.user.name}}</p>
-                <p class="card-text"><small class="text-muted">{{item.created_date}}</small></p>
-                {% if current_user.is_authenticated and current_user == item.user %}
-                    <div>
-                        <a href="/edit_post/{{ item.id }}" class="btn btn-warning">Изменить</a>
-                        <a href="/post_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>
+        <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+            <div class="card-body"
+                 style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
+                <div class="accordion" id="accordion21">
+                    <div class="card">
+                        <div class="card-header" id="heading21">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse21"
+                                        aria-expanded="false" aria-controls="collapse21">
+                                    Видеоигры
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse21" class="collapse" aria-labelledby="heading21" data-parent="#accordion21">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat211">Диски</a><br>
+                                <a href="/goods/page{{now_page}}/cat212">Цифровые издания</a><br>
+                                <a href="/goods/page{{now_page}}/cat213">Дополнения</a><br>
+                            </div>
+                        </div>
                     </div>
-                {% endif %}
+                    <div class="card">
+                        <div class="card-header" id="heading22">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse22"
+                                        aria-expanded="false" aria-controls="collapse22">
+                                    Комплектующие ПК
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse22" class="collapse" aria-labelledby="heading22" data-parent="#accordion21">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat221">Видеокарты</a><br>
+                                <a href="/goods/page{{now_page}}/cat222">Процессоры</a><br>
+                                <a href="/goods/page{{now_page}}/cat223">Жёсткие диски</a><br>
+                                <a href="/goods/page{{now_page}}/cat224">Блоки питания</a><br>
+                                <a href="/goods/page{{now_page}}/cat225">Оперативная память</a><br>
+                                <a href="/goods/page{{now_page}}/cat226">Материнские платы</a><br>
+                                <a href="/goods/page{{now_page}}/cat227">Мониторы</a><br>
+                                <a href="/goods/page{{now_page}}/cat228">Прочее</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading23">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse23"
+                                        aria-expanded="false" aria-controls="collapse23">
+                                    Игровые гарнитуры
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse23" class="collapse" aria-labelledby="heading23" data-parent="#accordion21">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat231">Клавиатуры</a><br>
+                                <a href="/goods/page{{now_page}}/cat232">Мыши</a><br>
+                                <a href="/goods/page{{now_page}}/cat233">Наушники</a><br>
+                                <a href="/goods/page{{now_page}}/cat234">Флэш-накопители</a><br>
+                                <a href="/goods/page{{now_page}}/cat235">Прочее</a><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="heading3">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3"
+                        aria-expanded="false" aria-controls="collapse3">
+                    Цифровая электроника
+                </button>
+            </h2>
+        </div>
+        <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+            <div class="card-body"
+                 style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
+                <div class="accordion" id="accordion31">
+                    <div class="card">
+                        <div class="card-header" id="heading31">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse31"
+                                        aria-expanded="false" aria-controls="collapse31">
+                                    Смартфоны и планшеты
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse31" class="collapse" aria-labelledby="heading31" data-parent="#accordion31">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat311">Apple</a><br>
+                                <a href="/goods/page{{now_page}}/cat312">Samsung</a><br>
+                                <a href="/goods/page{{now_page}}/cat313">Huawei</a><br>
+                                <a href="/goods/page{{now_page}}/cat314">Xiaomi</a><br>
+                                <a href="/goods/page{{now_page}}/cat315">Meizu</a><br>
+                                <a href="/goods/page{{now_page}}/cat316">Honor</a><br>
+                                <a href="/goods/page{{now_page}}/cat317">Прочие марки</a><br>
+                                <a href="/goods/page{{now_page}}/cat318">Аксессуары</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading32">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse32"
+                                        aria-expanded="false" aria-controls="collapse32">
+                                    Бытовая электроника
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse32" class="collapse" aria-labelledby="heading32" data-parent="#accordion31">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat321">Телевизоры</a><br>
+                                <a href="/goods/page{{now_page}}/cat322">Принтеры и МФУ</a><br>
+                                <a href="/goods/page{{now_page}}/cat323">Техника для кухни</a><br>
+                                <a href="/goods/page{{now_page}}/cat324">Техника для дома</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading33">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse33"
+                                        aria-expanded="false" aria-controls="collapse33">
+                                    "Умный дом"
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse33" class="collapse" aria-labelledby="heading33" data-parent="#accordion31">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat331">Колонки</a><br>
+                                <a href="/goods/page{{now_page}}/cat332">Весы</a><br>
+                                <a href="/goods/page{{now_page}}/cat333">Датчики и пульты</a><br>
+                                <a href="/goods/page{{now_page}}/cat334">Лампы</a><br>
+                                <a href="/goods/page{{now_page}}/cat335">Прочее</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/goods/page{{now_page}}/cat340" style="background: #fff;">Прочее</a><br>
+                    <!--<div class="card">-->
+                    <!--<div class="card-header" id="heading34">-->
+                    <!--<h2 class="mb-0">-->
+                    <!--<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse34"-->
+                    <!--aria-expanded="false" aria-controls="collapse34">-->
+                    <!--Прочее-->
+                    <!--</button>-->
+                    <!--</h2>-->
+                    <!--</div>-->
+                    <!--<div id="collapse34" class="collapse" aria-labelledby="heading34" data-parent="#accordion31">-->
+                    <!--<div class="card-body">-->
+                    <!--<a href="/post/341">Прочее</a><br>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="heading4">
+            <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse4"
+                        aria-expanded="false" aria-controls="collapse4">
+                    Сувениры и атрибутика
+                </button>
+            </h2>
+        </div>
+        <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+            <div class="card-body"
+                 style="background: linear-gradient(to bottom right, rgba(69, 49, 99, 0.9), rgba(108, 76, 155, 0.8) 70%);">
+                <div class="accordion" id="accordion41">
+                    <div class="card">
+                        <div class="card-header" id="heading41">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse41"
+                                        aria-expanded="false" aria-controls="collapse41">
+                                    Фигурки и предметы
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse41" class="collapse" aria-labelledby="heading41" data-parent="#accordion41">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat411">Коллекционные фигурки</a><br>
+                                <a href="/goods/page{{now_page}}/cat412">Жетоны, значки, наклейки</a><br>
+                                <a href="/goods/page{{now_page}}/cat413">Кружки, магниты</a><br>
+                                <a href="/goods/page{{now_page}}/cat413">Прочее</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading42">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse42"
+                                        aria-expanded="false" aria-controls="collapse42">
+                                    Текстовая атрибутика
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse42" class="collapse" aria-labelledby="heading42" data-parent="#accordion41">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat421">Книги и комиксы</a><br>
+                                <a href="/goods/page{{now_page}}/cat422">Артбуки, постеры</a><br>
+                                <a href="/goods/page{{now_page}}/cat423">Блокноты</a><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="heading43">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#collapse43"
+                                        aria-expanded="false" aria-controls="collapse43">
+                                    Цифровая атрибутика
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapse43" class="collapse" aria-labelledby="heading43" data-parent="#accordion41">
+                            <div class="card-body">
+                                <a href="/goods/page{{now_page}}/cat431">Предметы для игр</a><br>
+                                <a href="/goods/page{{now_page}}/cat432">Музыка и фильмы</a><br>
+                                <a href="/goods/page{{now_page}}/cat433">ПО и подписки</a><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--<div class="col-md6 border rounded">-->
-<!--    <h2>{{item.title}}</h2>-->
-<!--    <div style="color: #fff">-->
-<!--        {{item.cost}} ₽-->
-<!--    </div>-->
-<!--    &lt;!&ndash;<div>&ndash;&gt;-->
-<!--        &lt;!&ndash;{{item.content}}&ndash;&gt;-->
-<!--    &lt;!&ndash;</div>&ndash;&gt;-->
-<!--    <div style="color: #fff">-->
-<!--        от {{item.user.name}}, {{item.created_date}}-->
-<!--        {% if current_user.is_authenticated and current_user == item.user %}-->
-<!--        <div>-->
-<!--            <a href="/post/{{ item.id }}" class="btn btn-warning">Изменить</a>-->
-<!--            <a href="/post_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>-->
-<!--        </div>-->
-<!--        {% endif %}-->
-<!--    </div>-->
-<!--</div>-->
-{% endfor %}
-
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item">
-
-            {% if cat %}
-            {% if now_page == 1 %}
-            <a class="page-link" href="" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% else %}
-            <a class="page-link" href="/goods/page{{now_page - 1}}/cat{{cat}}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% endif %}
-
-            {% else %}
-            {% if now_page == 1 %}
-            <a class="page-link" href="" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% else %}
-            <a class="page-link" href="/goods/page{{now_page - 1}}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-            {% endif %}
-            {% endif %}
-        </li>
-
-        {% for page in range(1, col_page + 1)%}
-        {% if cat %}
-        {% if now_page == page %}
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="/goods/page{{page}}/cat{{cat}}">{{page}} <span class="sr-only">(current)</span></a>
-        </li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="/goods/page{{page}}/cat{{cat}}">{{page}}</a></li>
+{% if cat %}
+<nav aria-label="breadcrumb" style="width: 600px; margin: 20px auto 20px auto; ">
+    <ol class="breadcrumb">
+        {% if cat[0] %}
+        <li class="breadcrumb-item active">{{cat[0]}}</li>
         {% endif %}
-
-        {% else %}
-        {% if now_page == page %}
-        <li class="page-item active" aria-current="page">
-            <a class="page-link" href="/goods/page{{page}}">{{page}} <span class="sr-only">(current)</span></a>
-        </li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="/goods/page{{page}}">{{page}}</a></li>
+        {% if cat[1] %}
+        <li class="breadcrumb-item active">{{cat[1]}}</li>
         {% endif %}
+        {% if cat[2] %}
+        <li class="breadcrumb-item active">{{cat[2]}}</li>
         {% endif %}
-        {% endfor %}
-
-        <li class="page-item">
-
-            {% if cat %}
-            {% if now_page == col_page %}
-            <a class="page-link" href="" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% else %}
-             <a class="page-link" href="/goods/page{{now_page + 1}}/cat{{cat}}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% endif %}
-
-            {% else %}
-            {% if now_page == col_page %}
-            <a class="page-link" href="" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% else %}
-             <a class="page-link" href="/goods/page{{now_page + 1}}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-            {% endif %}
-            {% endif %}
-        </li>
-    </ul>
+    </ol>
 </nav>
-{% else %}
-    <div class="alert alert-danger" role="alert">Постов по такой категории нет</div>
 {% endif %}
+
+{% if post %}
+{% for item in post%}
+
+<div class="card" style="max-width: 600px; margin: 40px auto 40px auto;">
+    {% if item.imgs %}
+    <img src="/static/img/users/post/{{item.id}}/1.jpg" class="card-img-top" alt="">
+    {% else %}
+    <img src="/static/img/user.png" class="card-img-top" alt="">
+    {% endif %}
+    <div class="card-body" style="text-align: center;">
+        <h4><a href="/some_post/{{ item.id }}" class="card-title">{{ item.title }}</a></h4>
+        <h3 style="color: #E30B5C;">{{item.cost}} <a style="color: #007bff;">₽</a></h3>
+        <h4 class="card-text" style="color: #007bff;">выставлено: <a href="/user/{{item.user_id}}" class="card-title"
+                                                                     style="color: #E30B5C;">{{item.user.name}}</a></h4>
+        <p class="card-text"><small class="text-muted">{{item.created_date}}</small></p>
+        {% if current_user.is_authenticated and current_user == item.user %}
+        <div>
+            <a href="/edit_post/{{ item.id }}" class="btn btn-warning">Изменить</a>
+            <a href="/post_delete/{{ item.id }}" class="btn btn-danger">Удалить</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endfor %}
+<center>
+    <div style="width: 10%;">
+        <nav aria-label="Page navigation example" style="background: transparent;">
+            <ul class="pagination">
+                <li class="page-item">
+                    {% if cat %}
+                    {% if now_page == 1 %}
+                    <a class="page-link" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% else %}
+                    <a class="page-link" href="/goods/page{{now_page - 1}}/cat{{cat}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% endif %}
+
+                    {% else %}
+                    {% if now_page == 1 %}
+                    <a class="page-link" href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% else %}
+                    <a class="page-link" href="/goods/page{{now_page - 1}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                </li>
+
+                {% for page in range(1, col_page + 1) %}
+                {% if cat %}
+                {% if now_page == page %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="/goods/page{{page}}/cat{{cat}}">{{page}} <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="/goods/page{{page}}/cat{{cat}}">{{page}}</a></li>
+                {% endif %}
+
+                {% else %}
+                {% if now_page == page %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="/goods/page{{page}}">{{page}} <span class="sr-only">(current)</span></a>
+                </li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="/goods/page{{page}}">{{page}}</a></li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                <li class="page-item">
+
+                    {% if cat %}
+                    {% if now_page == col_page %}
+                    <a class="page-link" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% else %}
+                    <a class="page-link" href="/goods/page{{now_page + 1}}/cat{{cat}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% endif %}
+
+                    {% else %}
+                    {% if now_page == col_page %}
+                    <a class="page-link" href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% else %}
+                    <a class="page-link" href="/goods/page{{now_page + 1}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
+</center>
+{% else %}
+<div class="alert alert-danger" role="alert">Объявления не найдены. <a href="/goods/page1">Все объявления</a>.</div>
+{% endif %}
+
 {% endblock %}

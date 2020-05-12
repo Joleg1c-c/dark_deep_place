@@ -3,7 +3,7 @@
 {% block title %}Page Not Found{% endblock %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="/static/css/style_error.css">
-<img src="/static/img/oops.png" width="352" height="255" alt="" style="border-size:50px">
+<img src="/static/img/oops.png" width="900" height="250" alt="" style="border-size:50px">
 
 {% if err == 400 %}
 <h1>BAD REQUEST</h1>
@@ -45,6 +45,9 @@
 <h1>HTTP VERSION NOT SUPPORTED</h1>
 <p>Извините, HTTP-версия, используемая в запросе, не поддерживается сервером.
     Пожалуйста, вернитесь на <a href="/">главную страницу</a> или попробуйте ещё раз.</p>
+{% elif title == "GAMEPYED - ЭТА СТРАНИЦА В СТАДИИ РАЗРАБОТКИ" %}
+<h1>ЭТА СТРАНИЦА В СТАДИИ РАЗРАБОТКИ</h1>
+<p>Вернуться на <a href="/">главную страницу</a></p>
 {% else %}
 <h1>ERROR</h1>
 <p>Извините, произошла непридвиденная ошибка.

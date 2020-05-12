@@ -1,0 +1,10 @@
+h1 { color: #fff }
+h5 { color: #E30B5C; }
+h4 { color: #fbef00; margin-top: .9rem; margin-bottom: .9rem; }
+h6 { color: #fbef00; margin-top: .9rem; margin-bottom: .9rem; }
+
+.container { border: 4px solid #fbef00; }
+
+input[type="checkbox"] {
+margin: 20px auto 0 auto;
+}

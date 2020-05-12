@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style_user_info.css">
 <style>
     .mb-3 {margin-bottom: 0rem!important;}
+
 </style>
 {% if current_user.is_authenticated %}
 <form action="" method="post" enctype="multipart/form-data">
@@ -21,6 +22,7 @@
         Рекомендуется выбирать изображение одинаковой ширины и высоты, в котором нет альфа-канала.",
         data_toggle="tooltip", data_placement="bottom") }}
     </div>
+
 
     <p>
         {{ form.name.label }}
@@ -281,7 +283,7 @@
     </div>
     {% endfor %}
 
-    <input type="checkbox" onclick="old_myFunction()">Показать пороль
+    <input type="checkbox" onclick="old_myFunction()">Показать пароль
     <script>
             function old_myFunction() {
                 var x = document.getElementById("old_myInput");
@@ -294,6 +296,7 @@
 
 
 
+
     </script>
     </p>
     <p>
@@ -301,7 +304,8 @@
         {{ form.password(class="form-control", id="myInput",
         placeholder="Новый пароль", title="Пароль может содержать буквы латинского алфавита
         (A–z), цифры (0–9) и специальные символы ( . , : ; ? ! * + % - @ ( ) [ ] { } / _ $ # ).
-        Минимальная длина пароля - 8 символов, максимальная - 24 символа.",
+        Минимальная длина пароля - 8 символов, максимальная - 24 символа. Пароль должен содержать
+        хотя бы одну цифру, один специальный символ или буквы разного регистра.",
         data_toggle="tooltip", data_placement="top")}}
         {% for error in form.password.errors %}
     <div class="alert alert-danger" role="alert">
@@ -309,7 +313,7 @@
     </div>
     {% endfor %}
 
-    <input type="checkbox" onclick="myFunction()">Показать пороль
+    <input type="checkbox" onclick="myFunction()">Показать пароль
     <script>
             function myFunction() {
                 var x = document.getElementById("myInput");
@@ -319,6 +323,7 @@
                     x.type = "password";
                 }
             }
+
 
 
     </script>
