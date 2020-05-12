@@ -1330,7 +1330,7 @@ def load_user(user_id):
 
 def main():
     db_session.global_init("db/barahol.sqlite")
-    app.run(port=os.environ.get("PORT", 8000), host='127.0.0.1')
+    app.run(port=os.environ.get("PORT"), host='127.0.0.1')
 
 
 if __name__ == '__main__':
